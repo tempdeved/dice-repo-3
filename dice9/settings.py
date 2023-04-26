@@ -142,9 +142,9 @@ STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-LOGIN_URL = 'aluno'
-LOGIN_REDIRECT_URL = 'aluno'
-LOGOUT_REDIRECT_URL = 'aluno'
+LOGIN_URL = 'home'
+LOGIN_REDIRECT_URL = 'home'
+LOGOUT_REDIRECT_URL = 'home'
 
 
 # SESSION_SAVE_EVERY_REQUEST = True

@@ -24,8 +24,6 @@ urlpatterns = [
     path('aluno', views.aluno, name='aluno'),
     path('aluno/create', views.aluno_create, name='aluno-create'),
     path('aluno-novo/', views.aluno_novo, name='aluno-novo'), # path usado pelo 'alunos/' para cadastrar novo aluno
-
-
     path('alunos/', views.alunos, name='alunos'),
 
     path('turmas/', views.Turmas().list, name='turmas'),

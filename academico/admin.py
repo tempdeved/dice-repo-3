@@ -102,10 +102,7 @@ class TurmaAdmin(admin.ModelAdmin):
     @admin.display(description='Hora')
     def v_hr_turma(self, obj):
         try:
-            obj.hr_turma.filter(id=obj.id)
-            obj.hr_turma.first().dia_semana
             result = obj.hr_turma.select_related()
-
             a = []
             for i in result:
                 # a = f'{i.dia_semana} '

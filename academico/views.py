@@ -1,24 +1,43 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 from . import models
 from . import forms
 
+TEXT_LOGIN = 'faça login'
+
+
 # Create your views here.
 def home(request):
+    if not request.user.is_authenticated:
+        result = {
+            'hello': TEXT_LOGIN,
+            'div_teste': '',
+        }
 
-    result = {
-        'hello': 'ola mundo, home',
-        'div_teste': 'teste-div',
-    }
+        response = render(
+            request=request,
+            # template_name='registration/login.html',
+            template_name='index.html',
+            context=result,
+        )
 
-    response = render(
-        request=request,
-        # template_name='registration/login.html',
-        template_name='index.html',
-        context=result,
-    )
+        return response
+    else:
+        result = {
+            'hello': f'Olá, {request.user}',
+            'div_teste': '',
+        }
 
-    return response
+        response = render(
+            request=request,
+            # template_name='registration/login.html',
+            template_name='index.html',
+            context=result,
+        )
+
+        return response
 
 
 def aluno_create(request):
@@ -85,36 +104,66 @@ class Horario():
         return redirect('home')
 
     def list(elf, request):
-        horario = models.Horario.objects.all()
+        if not request.user.is_authenticated:
+            result = {
+                'hello': TEXT_LOGIN,
+                'div_teste': '',
+            }
 
+            response = render(
+                request=request,
+                # template_name='registration/login.html',
+                template_name='index.html',
+                context=result,
+            )
+
+            return response
+        else:
+            horario = models.Horario.objects.all()
+
+            result = {
+                'horarios': horario,
+            }
+
+            response = render(
+                request=request,
+                template_name='horarios.html',
+                context=result,
+            )
+
+            return response
+
+
+def alunos(request):
+    if not request.user.is_authenticated:
         result = {
-            'horarios': horario,
+            'hello': TEXT_LOGIN,
+            'div_teste': '',
         }
 
         response = render(
             request=request,
-            template_name='horarios.html',
+            # template_name='registration/login.html',
+            template_name='index.html',
+            context=result,
+        )
+
+        return response
+    else:
+        alunos = models.Aluno.objects.all()
+
+        result = {
+            'alunos': alunos,
+        }
+
+        response = render(
+            request=request,
+            template_name='alunos.html',
             context=result,
         )
 
         return response
 
-
-def alunos(request):
-
-    alunos = models.Aluno.objects.all()
-
-    result = {
-        'alunos': alunos,
-    }
-
-    response = render(
-        request=request,
-        template_name='alunos.html',
-        context=result,
-    )
-
-    return response
 
 def aluno_novo(request):
     form = forms.AlunoForm(request.POST or None)
@@ -127,24 +176,40 @@ class Turmas():
     def __init__(self):
         pass
 
+    # @login_required()
     def list(rself, request):
+        if not request.user.is_authenticated:
+            result = {
+                'hello': TEXT_LOGIN,
+                'div_teste': 'test',
+            }
 
-        turmas = models.Turma.objects.all()
+            response = render(
+                request=request,
+                # template_name='registration/login.html',
+                template_name='index.html',
+                context=result,
+            )
 
-        result = {
-            'turmas': turmas
-        }
+            return response
+           # return redirect(to='home')
+        else:
+            turmas = models.Turma.objects.all()
 
-        for i in turmas:
-            print(f'kkkkk - {i.semestre}')
+            result = {
+                'turmas': turmas
+            }
 
-        response = render(
-            request=request,
-            template_name='turmas.html',
-            context=result,
-        )
+            for i in turmas:
+                print(f'kkkkk - {i.semestre}')
 
-        return response
+            response = render(
+                request=request,
+                template_name='turmas.html',
+                context=result,
+            )
+
+            return response
 
     def form(self, request):
         form = forms.TurmaForm()
@@ -167,24 +232,62 @@ class Turmas():
             form.save()
         return redirect('home')
 
+
+class Funcionario():
+
+    def __init__(self):
+        pass
+
+    def auth(self, request):
+        username = request.POST["username"]
+        password = request.POST["password"]
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            # Redirect to a success page.
+            ...
+        else:
+            # Return an 'invalid login' error message.
+            ...
+        pass
+
+    def log_out(self, request):
+        logout(request)
+        pass
+
+
 def funcionarios(request):
+    if not request.user.is_authenticated:
+        result = {
+            'hello': TEXT_LOGIN,
+            'div_teste': '',
+        }
 
-    funcionarios = models.Funcionario.objects.all()
+        response = render(
+            request=request,
+            # template_name='registration/login.html',
+            template_name='index.html',
+            context=result,
+        )
 
-    result = {
-        'funcionarios': funcionarios
-    }
+        return response
+    else:
+        funcionarios = models.Funcionario.objects.all()
 
-    for i in funcionarios:
-        print(f'kkkkk - {i}')
+        result = {
+            'funcionarios': funcionarios
+        }
 
-    response = render(
-        request=request,
-        template_name='funcionarios.html',
-        context=result,
-    )
+        for i in funcionarios:
+            print(f'kkkkk - {i}')
 
-    return response
+        response = render(
+            request=request,
+            template_name='funcionarios.html',
+            context=result,
+        )
+
+        return response
 
 
 def aluno(request):
