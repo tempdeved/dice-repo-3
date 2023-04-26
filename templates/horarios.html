@@ -1,0 +1,28 @@
+
+{% extends 'base.html' %}
+{% block main %}
+
+<div class="row text-center">
+
+    <b> Horários</b>
+
+    <ul>
+        {% for horario in horarios %}
+            <li>
+                <a href="{% url 'horario-update-form' horario.id %}">{{ horario.id }}
+                    {{ horario.id }} :
+                    {{ horario.dia_semana }}:
+                    {{ horario.hora_inicio }}:
+                    {{ horario.min_inicio }} Hr até
+                    {{ horario.hora_fim }}:
+                    {{ horario.min_fim }} Hr -
+                    {{ horario.duracao_min }} min.
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+
+</div>
+
+
+{% endblock %}

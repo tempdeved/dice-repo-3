@@ -1,0 +1,19 @@
+
+{% extends 'base.html' %}
+{% block main %}
+
+<b> Funcionarios</b>
+
+<br>
+
+
+<ul >
+    {% for funcionario in funcionarios %}
+        <li> <a href="#">
+            {{ funcionario.nome_completo }}
+        </a> </li>
+    {% endfor %}
+</ul>
+
+
+{% endblock %}

@@ -1,0 +1,25 @@
+
+{% extends 'base.html' %}
+{% block main %}
+
+<b> Criar ALuno</b>
+
+<br>
+
+<!--<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">-->
+
+<form action="{% url 'horario-novo' %}", method="POST">
+
+    <!--  csrf_token atack protect  -->
+    {% csrf_token %}
+
+    {{ form.as_p }}
+
+    <button class="btn btn-info"
+            type="submit">
+        Cadastrar
+    </button>
+
+</form>
+
+{% endblock %}

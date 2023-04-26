@@ -1,0 +1,21 @@
+
+{% extends 'base.html' %}
+{% block main %}
+
+<b> Turmas</b>
+
+<br>
+
+
+<ul >
+    {% for turma in turmas %}
+        <li> <a href="#">
+            {{ turma.semestre }}
+            {{ turma.status }}
+            {{ turma.hr_turma.hora_inicio }}
+        </a> </li>
+    {% endfor %}
+</ul>
+
+
+{% endblock %}
