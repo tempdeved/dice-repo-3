@@ -107,12 +107,10 @@ class TurmaAdmin(admin.ModelAdmin):
             for i in result:
                 # a = f'{i.dia_semana} '
                 a.append(
-
                         f'{i.dia_semana} de '
                         f'{i.hora_inicio.zfill(2)}:{i.min_inicio.zfill(2)} até '
                         f'{i.hora_fim.zfill(2)}:{i.hora_fim.zfill(2)} '
                         f'({i.duracao_min.zfill(2)} min) '
-
                 )
             return str(a)
             # return f'{self.hr_turma.hora_inicio}:{self.min_inicio} - ' \

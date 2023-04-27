@@ -165,6 +165,8 @@ class Horario(models.Model):
     hora_fim = models.CharField(max_length=2, blank=True, null=True, default='', choices=hora_fim_choice)
     min_fim = models.CharField(max_length=2, blank=True, null=True, default='', choices=min_fim_choice)
     duracao_min = models.CharField(max_length=2, blank=True, null=True, default='')
+    # time_travel = models.TimeField('tempo', null=True, blank=True)
+    # duration_travel = models.DurationField('duração', null=True, blank=True)
 
     def hr_turma(self):
         return f'{self.hora_inicio}:{self.min_inicio} - ' \
@@ -183,6 +185,7 @@ class Turma(models.Model):
     # horario = models.ForeignKey(Horario, null=True, on_delete=models.RESTRICT, related_name='horario') # FK horario
     professor = models.ForeignKey(Funcionario, null=True, on_delete=models.RESTRICT, related_name='professor') # FK professor
     coordenador = models.ForeignKey(Funcionario, null=True, on_delete=models.RESTRICT, related_name='coordenador') # FK coordenador
+    # cod_turma = models.CharField(max_length=4, blank=True, null=True,)
 
     semestre_choice = (
         (1, 1),

@@ -41,20 +41,34 @@ def home(request):
 
 
 def aluno_create(request):
+    if not request.user.is_authenticated:
+        result = {
+            'hello': TEXT_LOGIN,
+            'div_teste': '',
+        }
 
-    form = forms.AlunoForm()
+        response = render(
+            request=request,
+            # template_name='registration/login.html',
+            template_name='index.html',
+            context=result,
+        )
 
-    result = {
-        'form': form
-    }
+        return response
+    else:
+        form = forms.AlunoForm()
 
-    response = render(
-        request=request,
-        template_name='aluno_create.html',
-        context=result,
-    )
+        result = {
+            'form': form
+        }
 
-    return response
+        response = render(
+            request=request,
+            template_name='aluno_create.html',
+            context=result,
+        )
+
+        return response
 
 
 class Horario():
@@ -63,19 +77,34 @@ class Horario():
         pass
 
     def form(self, request):
-        form = forms.HorarioForm()
+        if not request.user.is_authenticated:
+            result = {
+                'hello': TEXT_LOGIN,
+                'div_teste': '',
+            }
 
-        result = {
-            'form': form
-        }
+            response = render(
+                request=request,
+                # template_name='registration/login.html',
+                template_name='index.html',
+                context=result,
+            )
 
-        response = render(
-            request=request,
-            template_name='horario_form.html',
-            context=result,
-        )
+            return response
+        else:
+            form = forms.HorarioForm()
 
-        return response
+            result = {
+                'form': form
+            }
+
+            response = render(
+                request=request,
+                template_name='horario_form.html',
+                context=result,
+            )
+
+            return response
 
     def update_form(self, request, pk):
         # form = forms.HorarioUpdateForm(pk)
@@ -181,7 +210,7 @@ class Turmas():
         if not request.user.is_authenticated:
             result = {
                 'hello': TEXT_LOGIN,
-                'div_teste': 'test',
+                'div_teste': '',
             }
 
             response = render(
@@ -212,19 +241,34 @@ class Turmas():
             return response
 
     def form(self, request):
-        form = forms.TurmaForm()
+        if not request.user.is_authenticated:
+            result = {
+                'hello': TEXT_LOGIN,
+                'div_teste': '',
+            }
 
-        result = {
-            'form': form
-        }
+            response = render(
+                request=request,
+                # template_name='registration/login.html',
+                template_name='index.html',
+                context=result,
+            )
 
-        response = render(
-            request=request,
-            template_name='turma_form.html',
-            context=result,
-        )
+            return response
+        else:
+            form = forms.TurmaForm()
 
-        return response
+            result = {
+                'form': form
+            }
+
+            response = render(
+                request=request,
+                template_name='turma_form.html',
+                context=result,
+            )
+
+            return response
 
     def create(self, request):
         form = forms.HorarioForm(request.POST or None)

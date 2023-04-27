@@ -9,11 +9,21 @@
 
 <ul >
     {% for turma in turmas %}
-        <li> <a href="#">
-            {{ turma.semestre }}
-            {{ turma.status }}
-            {{ turma.hr_turma.hora_inicio }}
-        </a> </li>
+        <li>
+            <a href="#">
+                {{ turma.semestre }}
+                {{ turma.status }}
+                <br>
+                    {% for hr in turma.hr_turma.select_related %}
+                        <ul>
+                            {{ hr.dia_semana }} de
+                            {{ hr.hora_inicio }}:{{ hr.min_inicio| floatformat:2 }} até
+                            {{ hr.hora_fim| floatformat:2 }}:{{ hr.hora_fim | floatformat:2 }}
+                            ( {{ hr.duracao_min }} min)
+                        </ul>
+
+                    {% endfor %}
+        </a> </ul>
     {% endfor %}
 </ul>
 

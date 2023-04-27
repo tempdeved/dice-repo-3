@@ -24,7 +24,7 @@ class HorarioUpdateForm(ModelForm):
 
 
 class TurmaForm(forms.Form):
-    semestre = forms.IntegerField(min_value=1, max_value=2)
+    # formating labels
     horario_query = models.Horario.objects.values(
         'dia_semana',
         'hora_inicio',
@@ -35,16 +35,20 @@ class TurmaForm(forms.Form):
     )
 
     horario_list = []
+    try:
+        for i in horario_query:
+            horario_list.append(
+                ['dia_semana', f'{i["dia_semana"]} de '
+                               f'{i["hora_inicio"].zfill(2)}:{i["min_inicio"].zfill(2)} até '
+                               f'{i["hora_fim"].zfill(2)}:{i["hora_fim"].zfill(2)} '
+                               f'({i["duracao_min"].zfill(2)} min) '
+                 ]
+            )
+    except Exception as err:
+        print(err)
 
-    for i in horario_query:
-        horario_list.append(
-            ['dia_semana', f'{i["dia_semana"]} de '
-                           f'{i["hora_inicio"].zfill(2)}:{i["min_inicio"].zfill(2)} até '
-                           f'{i["hora_fim"].zfill(2)}:{i["hora_fim"].zfill(2)} '
-                           f'({i["duracao_min"].zfill(2)} min) '
-             ]
-        )
-
+    # labels
+    semestre = forms.IntegerField(min_value=1, max_value=2)
     horario = forms.MultipleChoiceField(
         required=False,
         widget=forms.CheckboxSelectMultiple,
