@@ -169,8 +169,33 @@ class Horario(models.Model):
     # duration_travel = models.DurationField('duração', null=True, blank=True)
 
     def hr_turma(self):
-        return f'{self.hora_inicio}:{self.min_inicio} - ' \
-               f'{self.hora_fim}:{self.min_fim}'.upper()
+        return f'{self.hora_inicio.zfill(2)}:{self.min_inicio.zfill(2)} - ' \
+               f'{self.hora_fim.zfill(2)}:{self.min_fim.zfill(2)}'.upper()
+
+    def view_duracao_min(self):
+        # ini = datetime.time(int(self.hora_inicio), int(self.min_inicio), 00)
+        # fim = datetime.time(int(self.hora_fim.zfill(2)), int(self.min_fim.zfill(2)), 00)
+
+        ini = datetime.datetime(
+            datetime.datetime.now().year,
+            datetime.datetime.now().month,
+            datetime.datetime.now().day,
+            int(self.hora_inicio),
+            int(self.min_inicio),
+            00
+        )
+        fim = datetime.datetime(
+            datetime.datetime.now().year,
+            datetime.datetime.now().month,
+            datetime.datetime.now().day,
+            int(self.hora_fim.zfill(2)),
+            int(self.min_fim.zfill(2)),
+            00
+        )
+
+        delta = int((fim - ini).total_seconds() / 60)
+
+        return delta
 
     def _str_(self):
         # return f'{self.dia_semana}'.upper()

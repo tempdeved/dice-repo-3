@@ -4,23 +4,39 @@
 
 <div class="row text-center">
 
-    <b> Horários</b>
+    <table class="table table-striped  table-hover table-responsive" style="text-transform:uppercase;" >
+        <thead>
+        <tr>
+            <th scope="col" colspan="12">  <h3> Horários </h3> </th>
+       </tr>
+        <tr>
+            <th scope="col">  dia_semana </th>
+            <th scope="col">  hr_turma </th>
+<!--            <th scope="col">  hora_inicio </th>-->
+<!--            <th scope="col">  min_inicio </th>-->
+<!--            <th scope="col">  hora_fim </th>-->
+<!--            <th scope="col">  min_fim </th>-->
+<!--            <th scope="col">  duracao_min </th>-->
+            <th scope="col">  duracao_min </th>
+        </tr>
+        </thead>
+        <tbody>
+    {% for horario in horarios %}
+        <tr>
+            <th class="row"> <a href="#">  {{ horario.dia_semana }} </a> </th>
+                <td> <a href="#">  {{ horario.hr_turma }} </a> </td>
+<!--                <td> <a href="#">  {{ horario.hora_inicio }} </a> </td>-->
+<!--                <td> <a href="#">  {{ horario.min_inicio}} </a> </td>-->
+<!--                <td> <a href="#">  {{ horario.hora_fim}} </a> </td>-->
+<!--                <td> <a href="#">  {{ horario.min_fim}} </a> </td>-->
+<!--                <td> <a href="#">  {{ horario.duracao_min}} </a> </td>-->
+                <td> <a href="#">  {{ horario.view_duracao_min}} </a> </td>
+        </tr>
+    {% endfor %}
+    <tbody>
+    </table>
 
-    <ul>
-        {% for horario in horarios %}
-            <li>
-                <a href="{% url 'horario-update-form' horario.id %}">{{ horario.id }}
-                    {{ horario.id }} :
-                    {{ horario.dia_semana }}:
-                    {{ horario.hora_inicio | get_digit:"4" }}:
-                    {{ horario.min_inicio }} Hr até
-                    {{ horario.hora_fim }}:
-                    {{ horario.min_fim }} Hr -
-                    {{ horario.duracao_min }} min.
-                </a>
-            </li>
-        {% endfor %}
-    </ul>
+
 
 </div>
 

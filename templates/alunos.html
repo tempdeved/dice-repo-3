@@ -30,7 +30,7 @@
         <tr>
             <th class="row"> <a href="#">  {{ aluno.nome }} </a> </th>
                 <td> <a href="#">  {{ aluno.status }} </a> </td>
-                <td> <a href="#">  {{ aluno.dat_nasc}} </a> </td>
+                <td> <a href="#">  {{ aluno.dat_nasc |date:'d-M-y'}} </a> </td>
                 <td> <a href="#">  {{ aluno.telefone1}} </a> </td>
                 <td> <a href="#">  {{ aluno.n_irmaos}} </a> </td>
                 <td> <a href="#">  {{ aluno.tel_responsavel_financeiro}} </a> </td>
@@ -51,10 +51,6 @@
     {% endfor %}
     <tbody>
     </table>
-<!--    </div>-->
-
-
-</div>
 
 
 {% endblock %}
