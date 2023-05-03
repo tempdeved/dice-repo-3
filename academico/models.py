@@ -220,8 +220,8 @@ class Turma(models.Model):
     # nu_turma = models.IntegerField(blank=True, null=True, default=0)
     numero_turma = models.IntegerField(blank=True, null=True, default=0)
     status_choice = (
-        ('ativa','ativa'),
-        ('encerrada','encerrada'),
+        ('ativa', 'ativa'),
+        ('encerrada', 'encerrada'),
     )
     status = models.CharField(max_length=100, blank=True, null=True, default='', choices=status_choice)
     escola_choice = (

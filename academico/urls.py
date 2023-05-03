@@ -21,10 +21,13 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('', views.home, name='home'),
-    path('aluno', views.aluno, name='aluno'),
-    path('aluno/create', views.aluno_create, name='aluno-create'),
-    path('aluno-novo/', views.aluno_novo, name='aluno-novo'), # path usado pelo 'alunos/' para cadastrar novo aluno
+
+
     path('alunos/', views.alunos, name='alunos'),
+    # path('aluno/<int:>', views.aluno, name='aluno'),
+    path('aluno/create', views.Aluno().create, name='aluno-create'),
+    path('aluno-novo/', views.aluno_novo, name='aluno-novo'), # path usado pelo 'alunos/' para cadastrar novo aluno
+
 
     path('turmas/', views.Turmas().list, name='turmas'),
     path('turma/form', views.Turmas().form, name='turma-form'),

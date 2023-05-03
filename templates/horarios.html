@@ -23,7 +23,7 @@
         <tbody>
     {% for horario in horarios %}
         <tr>
-            <th class="row"> <a href="#">  {{ horario.dia_semana }} </a> </th>
+            <th class="row"> <a href="{% url 'horario-update-form' horario.id %}">  {{ horario.dia_semana }} </a> </th>
                 <td> <a href="#">  {{ horario.hr_turma }} </a> </td>
 <!--                <td> <a href="#">  {{ horario.hora_inicio }} </a> </td>-->
 <!--                <td> <a href="#">  {{ horario.min_inicio}} </a> </td>-->

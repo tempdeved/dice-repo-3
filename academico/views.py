@@ -40,7 +40,7 @@ def home(request):
         return response
 
 
-def aluno_create(request):
+def alunos(request):
     if not request.user.is_authenticated:
         result = {
             'hello': TEXT_LOGIN,
@@ -56,19 +56,97 @@ def aluno_create(request):
 
         return response
     else:
-        form = forms.AlunoForm()
+        alunos = models.Aluno.objects.all()
 
         result = {
-            'form': form
+            'alunos': alunos,
         }
 
         response = render(
             request=request,
-            template_name='aluno_create.html',
+            template_name='alunos.html',
             context=result,
         )
 
         return response
+
+
+def aluno_novo(request):
+    form = forms.AlunoForm(request.POST or None)
+    if form.is_valid():
+        form.save()
+    return redirect('alunos')
+
+
+
+
+def aluno(request):
+    result = {
+        'hello': 'ola mundo, home',
+        'div_teste': 'teste-div',
+    }
+
+    response = render(
+        request=request,
+        # template_name='registration/login.html',
+        template_name='aluno.html',
+        context=result,
+    )
+    return response
+
+
+def aluno_id(request, id):
+    request = f'ola, ID: {id}'
+    response = HttpResponse(request)
+    return response
+
+
+class Aluno():
+
+    def __init__(self):
+        pass
+
+    def form(self):
+        pass
+
+    def update_form(self):
+        pass
+
+    def update(self):
+        pass
+
+    def create(self, request):
+        if not request.user.is_authenticated:
+            result = {
+                'hello': TEXT_LOGIN,
+                'div_teste': '',
+            }
+
+            response = render(
+                request=request,
+                # template_name='registration/login.html',
+                template_name='index.html',
+                context=result,
+            )
+
+            return response
+        else:
+            form = forms.AlunoForm()
+
+            result = {
+                'form': form
+            }
+
+            response = render(
+                request=request,
+                template_name='aluno_create.html',
+                context=result,
+            )
+
+            return response
+
+    def list(self):
+        pass
 
 
 class Horario():
@@ -163,44 +241,6 @@ class Horario():
             return response
 
 
-def alunos(request):
-    if not request.user.is_authenticated:
-        result = {
-            'hello': TEXT_LOGIN,
-            'div_teste': '',
-        }
-
-        response = render(
-            request=request,
-            # template_name='registration/login.html',
-            template_name='index.html',
-            context=result,
-        )
-
-        return response
-    else:
-        alunos = models.Aluno.objects.all()
-
-        result = {
-            'alunos': alunos,
-        }
-
-        response = render(
-            request=request,
-            template_name='alunos.html',
-            context=result,
-        )
-
-        return response
-
-
-def aluno_novo(request):
-    form = forms.AlunoForm(request.POST or None)
-    if form.is_valid():
-        form.save()
-    return redirect('alunos')
-
-
 class Turmas():
     def __init__(self):
         pass
@@ -228,9 +268,6 @@ class Turmas():
             result = {
                 'turmas': turmas
             }
-
-            for i in turmas:
-                print(f'kkkkk - {i.semestre}')
 
             response = render(
                 request=request,
@@ -332,24 +369,3 @@ def funcionarios(request):
         )
 
         return response
-
-
-def aluno(request):
-    result = {
-        'hello': 'ola mundo, home',
-        'div_teste': 'teste-div',
-    }
-
-    response = render(
-        request=request,
-        # template_name='registration/login.html',
-        template_name='aluno.html',
-        context=result,
-    )
-    return response
-
-
-def aluno_id(request, id):
-    request = f'ola, ID: {id}'
-    response = HttpResponse(request)
-    return response
