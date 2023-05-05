@@ -161,7 +161,7 @@ class Aluno():
 
             response = render(
                 request=request,
-                template_name='aluno_create.html',
+                template_name='aluno_form.html',
                 context=result,
             )
 
@@ -231,7 +231,7 @@ class Horario():
         form = forms.HorarioForm(request.POST or None)
         if form.is_valid():
             form.save()
-        return redirect('home')
+        return redirect('horario-form')
 
     def list(elf, request):
         if not request.user.is_authenticated:
@@ -359,6 +359,42 @@ class Funcionario():
     def log_out(self, request):
         logout(request)
         pass
+
+    def form(self, request):
+        if not request.user.is_authenticated:
+            result = {
+                'hello': TEXT_LOGIN,
+                'div_teste': '',
+            }
+
+            response = render(
+                request=request,
+                # template_name='registration/login.html',
+                template_name='index.html',
+                context=result,
+            )
+
+            return response
+        else:
+            form = forms.FuncionarioForm()
+
+            result = {
+                'form': form
+            }
+
+            response = render(
+                request=request,
+                template_name='funcionario_form.html',
+                context=result,
+            )
+
+            return response
+
+    def create(self, request):
+        form = forms.FuncionarioForm(request.POST or None)
+        if form.is_valid():
+            form.save()
+        return redirect('funcionarios')
 
 
 def funcionarios(request):

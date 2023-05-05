@@ -3,9 +3,9 @@
 {% block main %}
 
 
-<form action="{% url 'aluno-' %}" method="post">
+<form action="" method="post">
     {% csrf_token %}
-    {{ form_search.as_p }}
+    {{ form_search }}
     <input type="submit" value="Buscar">
 </form>
 

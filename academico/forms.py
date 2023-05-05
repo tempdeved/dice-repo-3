@@ -15,10 +15,13 @@ FAVORITE_COLORS_CHOICES = [
     ("black", "Black"),
 ]
 
+
 class AlunoForm(ModelForm):
     class Meta:
         model = models.Aluno
         fields = '__all__'
+
+
 class AlunoSearch(ModelForm):
     class Meta:
         model = models.Aluno
@@ -27,7 +30,6 @@ class AlunoSearch(ModelForm):
     # class Meta:
     #     model = models.Aluno
     #     fields = '__all__'
-
 
 
 class HorarioForm(ModelForm):
@@ -41,6 +43,13 @@ class HorarioUpdateForm(ModelForm):
         # model = models.Horario.objects.get(pk)
         model = models.Horario
         fields = '__all__'
+
+class FuncionarioForm(ModelForm):
+    class Meta:
+        # model = models.Horario.objects.get(pk)
+        model = models.Funcionario
+        fields = '__all__'
+
 
 class TurmaForm2(ModelForm):
     class Meta:

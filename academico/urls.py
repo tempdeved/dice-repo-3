@@ -34,6 +34,8 @@ urlpatterns = [
     path('turma-novo/', views.Turmas().create, name='turma-create'),
 
     path('funcionarios/', views.funcionarios, name='funcionarios'),
+    path('funcionario/form', views.Funcionario().form, name='funcionario-form'),
+    path('funcionario-novo', views.Funcionario().create, name='funcionario-novo'),
 
     path('horarios', views.Horario().list, name='horarios'),
     path('horario/form', views.Horario().form, name='horario-form'),
