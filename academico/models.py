@@ -1,7 +1,7 @@
 import datetime
 from django.db import models
 from django.contrib import admin
-import math
+from django.urls import reverse # Used to generate URLs by reversing the URL patterns
 
 
 # Create your models here.
@@ -91,7 +91,11 @@ class Aluno(models.Model):
         except:
             return f'Não Cadastrado'
 
-    def _str_(self):
+    def get_absolute_url(self):
+        """Retorna o URL para acessar uma instância específica do modelo."""
+        return reverse('aluno-detail', args=[str(self.id)])
+
+    def __str__(self):
         return f'{self.nome} {self.ultimo_nome}'.upper()
 
 
@@ -131,6 +135,9 @@ class Funcionario(models.Model):
     def _str_(self):
         return f'{self.id}: {self.nome_completo} - {self.funcao} - {self.status}'.upper()
 
+    def __str__(self):
+        return f'{self.nome_completo} - {self.funcao}'
+
 
 class Horario(models.Model):
     id = models.AutoField(primary_key=True,)
@@ -164,7 +171,7 @@ class Horario(models.Model):
     min_inicio = models.CharField(max_length=2, blank=True, null=True, default='', choices=min_ini_choice)
     hora_fim = models.CharField(max_length=2, blank=True, null=True, default='', choices=hora_fim_choice)
     min_fim = models.CharField(max_length=2, blank=True, null=True, default='', choices=min_fim_choice)
-    duracao_min = models.CharField(max_length=2, blank=True, null=True, default='')
+    # duracao_min = models.CharField(max_length=2, blank=True, null=True, default='')
     # time_travel = models.TimeField('tempo', null=True, blank=True)
     # duration_travel = models.DurationField('duração', null=True, blank=True)
 
@@ -197,10 +204,10 @@ class Horario(models.Model):
 
         return delta
 
-    def _str_(self):
+    def __str__(self):
         # return f'{self.dia_semana}'.upper()
-        return f'{self.dia_semana} | {self.hora_inicio}:{self.min_inicio}-' \
-           f'{self.hora_fim}:{self.min_fim}'.upper()
+        return f'{self.dia_semana} | {self.hora_inicio.zfill(2)}:{self.min_inicio.zfill(2)}-' \
+           f'{self.hora_fim.zfill(2)}:{self.min_fim.zfill(2)}'.upper()
 
 
 class Turma(models.Model):
@@ -246,10 +253,13 @@ class Turma(models.Model):
     hr_turma = models.ManyToManyField(Horario, related_name='horario')  # FK horario)
     aluno = models.ManyToManyField(Aluno,  blank=True, related_name='aluno')  # FK coordenador
 
-    def _str_(self):
-        return f'{self.created_at.year}-{self.numero_turma}-{self.dia_semana} às '\
-               f'{self.hora_inicio}:{self.min_inicio} - ' \
-               f'{self.hora_fim}:{self.min_fim}'
+    def _horario(self):
+        return "\n".join([f'{p}' for p in self.hr_turma.all()])
+
+    def __str__(self):
+        return f'{self.created_at.year}-{self.numero_turma}'
+               # f'{self.hr_turma.hora_inicio.zfill(2)}:{self.hr_turma.min_inicio.zfill(2)} - ' \
+               # f'{self.hr_turma.hora_fim.zfill(2)}:{self.hr_turma.min_fim.zfill(2)}'
 
 
 class HistoricoAluno(models.Model):
@@ -322,5 +332,5 @@ class HistoricoAluno(models.Model):
 
         return round(result, 2)
 
-    def _str_(self):
+    def __str__(self):
         return f'{self.turma}: {self.aluno}'

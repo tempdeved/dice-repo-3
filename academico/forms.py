@@ -19,6 +19,15 @@ class AlunoForm(ModelForm):
     class Meta:
         model = models.Aluno
         fields = '__all__'
+class AlunoSearch(ModelForm):
+    class Meta:
+        model = models.Aluno
+        fields = ('nome', )
+    # aluno_id = forms.CharField(label="aluno_id", max_length=100)
+    # class Meta:
+    #     model = models.Aluno
+    #     fields = '__all__'
+
 
 
 class HorarioForm(ModelForm):
@@ -33,6 +42,12 @@ class HorarioUpdateForm(ModelForm):
         model = models.Horario
         fields = '__all__'
 
+class TurmaForm2(ModelForm):
+    class Meta:
+        # model = models.Horario.objects.get(pk)
+        model = models.Turma
+        fields = '__all__'
+
 
 class TurmaForm(forms.Form):
     #
@@ -45,7 +60,7 @@ class TurmaForm(forms.Form):
         'min_inicio',
         'hora_fim',
         'hora_fim',
-        'duracao_min',
+        # 'duracao_min',
     )
 
     horario_list = []

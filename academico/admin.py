@@ -76,9 +76,8 @@ class TurmaAdmin(admin.ModelAdmin):
         'coordenador',
         'semestre',
         'numero_turma',
-        'numero_turma',
-        'numero_turma',
-        'v_hr_turma',
+        # 'v_hr_turma',
+        '_horario',
         'status',
     )
 
@@ -95,14 +94,15 @@ class TurmaAdmin(admin.ModelAdmin):
     def v_created_at(self, obj):
         return f'{obj.created_at.year}'
 
-    @admin.display(description='Dia Semana')
-    def dia_semana(self, obj):
-        return f'{obj.dia_semana}'
+    # @admin.display(description='Dia Semana')
+    # def dia_semana(self, obj):
+    #     return f'{obj.dia_semana}'
 
     @admin.display(description='Hora')
     def v_hr_turma(self, obj):
         try:
-            result = obj.hr_turma.select_related()
+            # result = obj.hr_turma.select_related()
+            result = obj.hr_turma.all()
             a = []
             for i in result:
                 # a = f'{i.dia_semana} '

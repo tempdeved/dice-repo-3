@@ -48,6 +48,6 @@ Thumbs.db
 
 #projeto
 images/
-db.sqlite3
+#db.sqlite3
 
 

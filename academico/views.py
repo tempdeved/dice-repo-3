@@ -2,6 +2,8 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from django.views.generic import ListView
+
 from . import models
 from . import forms
 
@@ -95,10 +97,30 @@ def aluno(request):
     return response
 
 
+# def aluno_id(request, id):
+#     request = f'ola, ID: {id}'
+#     response = HttpResponse(request)
+
+from django.views import generic
+from django.shortcuts import get_object_or_404
+
 def aluno_id(request, id):
-    request = f'ola, ID: {id}'
-    response = HttpResponse(request)
+    aluno = get_object_or_404(models.Aluno, pk=id)
+    form = forms.AlunoSearch()
+
+    result = {
+        'form_search': form,
+        'aluno': aluno
+    }
+
+    response = render(
+        request=request,
+        template_name='aluno_detalhe.html',
+        context=result,
+    )
+
     return response
+    # return render(request, 'aluno_detalhe.html', context={'aluno': aluno})
 
 
 class Aluno():
@@ -144,6 +166,7 @@ class Aluno():
             )
 
             return response
+
 
     def list(self):
         pass
@@ -293,7 +316,8 @@ class Turmas():
 
             return response
         else:
-            form = forms.TurmaForm()
+            # form = forms.TurmaForm()
+            form = forms.TurmaForm2()
 
             result = {
                 'form': form
