@@ -1,7 +1,15 @@
 from django.contrib import admin
 from . import models
 
-
+# @admin.register(models.HistoricoAlunoPre)
+# class HistoricoAlunoPre(admin.ModelAdmin):
+#     fields = ('id', 'created_at') #campos para cadastrar
+#     # list_display = ()
+#     # grid de visualizações
+#     # list_filter = ()
+#     # search_fields = ()
+#     # filter_horizontal = ('aluno',)
+#     pass
 # Register your models here.
 @admin.register(models.Funcionario)
 class FuncionarioAdmin(admin.ModelAdmin):
@@ -13,6 +21,7 @@ class FuncionarioAdmin(admin.ModelAdmin):
         'telefone1',
         'telefone2',
         'email',
+        'foto',
     ) # grid de visualizações
     # list_filter = ()
     # search_fields = ()

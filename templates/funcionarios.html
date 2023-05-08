@@ -24,6 +24,7 @@
             <th scope="col">  telefone2 </th>
             <th scope="col">  dat_nasc </th>
             <th scope="col">  email </th>
+            <th scope="col">  editar </th>
             <th scope="col">  foto </th>
         </tr>
     </thead>
@@ -37,9 +38,10 @@
                 <td> <a href="#">  {{ funcionario.telefone2 }} </a> </td>
                 <td> <a href="#">  {{ funcionario.dat_nasc }} </a> </td>
                 <td> <a href="#">  {{ funcionario.email }} </a> </td>
+                <td> <a href="{% url 'funcionario-update' funcionario.id %}">  link </a> </td>
                 <td>
                 <a href="#">
-                    {% if aluno.foto %}
+                    {% if funcionario.foto %}
                         <img src="{{ MEDIA_URL }}{{funcionario.foto}}" class="img-responsive" alt="..." width="100" height="100" >
 
                     {% endif %}

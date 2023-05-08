@@ -9,6 +9,20 @@ from . import forms
 
 TEXT_LOGIN = 'faça login'
 
+def not_auth(request):
+    result = {
+                'hello': TEXT_LOGIN,
+                'div_teste': '',
+            }
+
+    response = render(
+        request=request,
+        # template_name='registration/login.html',
+        template_name='index.html',
+        context=result,
+    )
+
+    return response
 
 # Create your views here.
 def home(request):
@@ -134,8 +148,25 @@ class Aluno():
     def update_form(self):
         pass
 
-    def update(self):
-        pass
+    def update(self, request, id):
+
+        post = models.Aluno.objects.get(id=id)
+        form = forms.AlunoForm(request.POST or None, instance=post)
+
+        result = {
+            'aluno': post,
+            'form': form,
+        }
+
+        if request.method == "POST":
+            if form.is_valid():
+                # post = form.save(commit=False)
+                # post.save()
+                form.save()
+                return redirect('alunos')
+        else:
+            return render(request, 'aluno_update_form.html', result )
+
 
     def create(self, request):
         if not request.user.is_authenticated:
@@ -221,11 +252,24 @@ class Horario():
             form = forms.HorarioUpdateForm(instance=post)
         return render(request, 'horario_update_form.html', {'form': form})
 
-    def update(self, request):
-        form = forms.HorarioForm(request.POST or None)
-        if form.is_valid():
-            form.save()
-        return redirect('home')
+    def update(self, request, id):
+
+        post = models.Horario.objects.get(id=id)
+        form = forms.HorarioForm(request.POST or None, instance=post)
+
+        data = {
+            'horario': post,
+            'form': form,
+        }
+
+        if request.method == "POST":
+            if form.is_valid():
+                # post = form.save(commit=False)
+                # post.save()
+                form.save()
+                return redirect('horarios')
+        else:
+            return render(request, 'horario_update_form.html', data )
 
     def create(self, request):
         form = forms.HorarioForm(request.POST or None)
@@ -235,19 +279,7 @@ class Horario():
 
     def list(elf, request):
         if not request.user.is_authenticated:
-            result = {
-                'hello': TEXT_LOGIN,
-                'div_teste': '',
-            }
-
-            response = render(
-                request=request,
-                # template_name='registration/login.html',
-                template_name='index.html',
-                context=result,
-            )
-
-            return response
+            NOT_AUTH
         else:
             horario = models.Horario.objects.all()
 
@@ -271,18 +303,7 @@ class Turmas():
     # @login_required()
     def list(rself, request):
         if not request.user.is_authenticated:
-            result = {
-                'hello': TEXT_LOGIN,
-                'div_teste': '',
-            }
-
-            response = render(
-                request=request,
-                # template_name='registration/login.html',
-                template_name='index.html',
-                context=result,
-            )
-
+            response = not_auth(request)
             return response
            # return redirect(to='home')
         else:
@@ -302,18 +323,7 @@ class Turmas():
 
     def form(self, request):
         if not request.user.is_authenticated:
-            result = {
-                'hello': TEXT_LOGIN,
-                'div_teste': '',
-            }
-
-            response = render(
-                request=request,
-                # template_name='registration/login.html',
-                template_name='index.html',
-                context=result,
-            )
-
+            response = not_auth(request)
             return response
         else:
             # form = forms.TurmaForm()
@@ -332,10 +342,43 @@ class Turmas():
             return response
 
     def create(self, request):
-        form = forms.HorarioForm(request.POST or None)
+        form = forms.TurmaForm2(request.POST or None)
         if form.is_valid():
             form.save()
-        return redirect('home')
+        return redirect('turmas')
+
+    def detail(self, request, id):
+        result_query = get_object_or_404(models.Turma, pk=id)
+        # result_query = models.Turma.objects.get(id=id)
+
+        data = {
+            'turma': result_query
+        }
+
+        response = render(
+            request=request,
+            template_name='turma_detalhe.html',
+            context=data,
+        )
+
+        return response
+
+    def update(self, request, id):
+
+        post = models.Turma.objects.get(id=id)
+        form = forms.TurmaForm2(request.POST or None, instance=post)
+
+        data = {
+            'turma': post,
+            'form': form,
+        }
+
+        if request.method == "POST":
+            if form.is_valid():
+                form.save()
+                return redirect('turmas')
+        else:
+            return render(request, 'turma_update_form.html', data )
 
 
 class Funcionario():
@@ -395,6 +438,26 @@ class Funcionario():
         if form.is_valid():
             form.save()
         return redirect('funcionarios')
+
+    def update(self, request, id):
+
+        post = models.Funcionario.objects.get(id=id)
+        form = forms.FuncionarioForm(request.POST or None, instance=post)
+
+        data = {
+            'funcionario': post,
+            'form': form,
+        }
+
+        if request.method == "POST":
+            if form.is_valid():
+                # post = form.save(commit=False)
+                # post.save()
+                form.save()
+                return redirect('funcionarios')
+        else:
+            return render(request, 'funcionario_update_form.html', data )
+
 
 
 def funcionarios(request):

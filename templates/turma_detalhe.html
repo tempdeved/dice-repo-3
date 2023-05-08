@@ -5,7 +5,7 @@
 <table class="table table-striped  table-hover table-responsive" style="text-transform:uppercase;" >
     <thead>
         <tr>
-            <th scope="col" colspan="11">  <h3> Turmas </h3> </th>
+            <th scope="col" colspan="11">  <h3> Turma Detalhe </h3> </th>
        </tr>
         <tr>
             <th scope="col">  semestre </th>
@@ -25,7 +25,6 @@
         </tr>
         </thead>
         <tbody>
-    {% for turma in turmas %}
         <tr>
             <th class="row"> <a href="#">  {{ turma.semestre }} </a> </th>
             <td> <a href="#">  {{ turma.status }} </a> </td>
@@ -54,7 +53,6 @@
 
         </tr>
 
-    {% endfor %}
     <tbody>
     </table>
 

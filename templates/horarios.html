@@ -18,6 +18,7 @@
 <!--            <th scope="col">  min_fim </th>-->
 <!--            <th scope="col">  duracao_min </th>-->
             <th scope="col">  duracao_min </th>
+            <th scope="col">  editar </th>
         </tr>
         </thead>
         <tbody>
@@ -31,6 +32,8 @@
 <!--                <td> <a href="#">  {{ horario.min_fim}} </a> </td>-->
 <!--                <td> <a href="#">  {{ horario.duracao_min}} </a> </td>-->
                 <td> <a href="#">  {{ horario.view_duracao_min}} </a> </td>
+                <td> <a href="{% url 'horario-update' horario.id %}">  link </a> </td>
+
         </tr>
     {% endfor %}
     <tbody>

@@ -23,6 +23,7 @@
             <th scope="col">  celular pai </th>
             <th scope="col">  tel trabalho pai </th>
             <th scope="col">  detalhe </th>
+            <th scope="col">  editar </th>
             <th scope="col">  foto </th>
         </tr>
         </thead>
@@ -40,7 +41,8 @@
                 <td> <a href="#">  {{ aluno.tel_trabalho_mae}} </a> </td>
                 <td> <a href="#">  {{ aluno.celular_pai}} </a> </td>
                 <td> <a href="#">  {{ aluno.tel_trabalho_pai}} </a> </td>
-                <td> <a href="{{ aluno.get_absolute_url }}">  link </a> </td>
+                <td> <a href="{{ aluno.get_absolute_url }}"> link </a> </td>
+                <td> <a href="{% url 'aluno-update' aluno.id %}">  link </a> </td>
                 <td>
                 <a href="#">
                     {% if aluno.foto %}

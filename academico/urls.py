@@ -20,30 +20,34 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
-    path('', views.home, name='home'),
+                  path('', views.home, name='home'),
 
+                  path('alunos/', views.alunos, name='alunos'),
+                  path('turmas/', views.Turmas().list, name='turmas'),
+                  path('funcionarios/', views.funcionarios, name='funcionarios'),
+                  path('horarios', views.Horario().list, name='horarios'),
 
-    path('alunos/', views.alunos, name='alunos'),
-    path('aluno/<int:id>', views.aluno_id, name='aluno-detail'),
-    path('aluno/create', views.Aluno().create, name='aluno-create'),
-    path('aluno-novo/', views.aluno_novo, name='aluno-novo'), # path usado pelo 'alunos/' para cadastrar novo aluno
+                  path('turma/form', views.Turmas().form, name='turma-form'),
+                  path('funcionario/form', views.Funcionario().form, name='funcionario-form'),
+                  path('horario/form', views.Horario().form, name='horario-form'),
+                  path('aluno/create', views.Aluno().create, name='aluno-create'),
 
+                  path('aluno-novo/', views.aluno_novo, name='aluno-novo'),
+                  path('turma-novo/', views.Turmas().create, name='turma-novo'),
+                  path('funcionario-novo', views.Funcionario().create, name='funcionario-novo'),
+                  path('horario-novo/', views.Horario().create, name='horario-novo'),
 
-    path('turmas/', views.Turmas().list, name='turmas'),
-    path('turma/form', views.Turmas().form, name='turma-form'),
-    path('turma-novo/', views.Turmas().create, name='turma-create'),
+                  path('aluno/<int:id>', views.aluno_id, name='aluno-detail'),
+                  path('turma/<int:id>', views.Turmas().detail, name='turma-detail'),
 
-    path('funcionarios/', views.funcionarios, name='funcionarios'),
-    path('funcionario/form', views.Funcionario().form, name='funcionario-form'),
-    path('funcionario-novo', views.Funcionario().create, name='funcionario-novo'),
+                  path('aluno-update/<int:id>', views.Aluno().update, name='aluno-update'),
+                  path('funcionario-update/<int:id>', views.Funcionario().update, name='funcionario-update'),
+                  path('horario-update/<int:id>', views.Horario().update, name='horario-update'),
+                  path('turma-update/<int:id>', views.Turmas().update, name='turma-update'),
 
-    path('horarios', views.Horario().list, name='horarios'),
-    path('horario/form', views.Horario().form, name='horario-form'),
-    path('horario-novo/', views.Horario().create, name='horario-novo'),
-    path('horario-update-form/<int:pk>', views.Horario().update_form, name='horario-update-form'),
-    path('horario-update/', views.Horario().update, name='horario-update'),
-
-] + static(
+                  path('horario-update-form/<int:pk>', views.Horario().update_form, name='horario-update-form'),
+                  # path('horario-update/', views.Horario().update, name='horario-update'),
+              ] + static(
     settings.MEDIA_URL,
     document_root=settings.MEDIA_ROOT
 )

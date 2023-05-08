@@ -176,8 +176,8 @@ class Horario(models.Model):
     # duration_travel = models.DurationField('duração', null=True, blank=True)
 
     def hr_turma(self):
-        return f'{self.hora_inicio.zfill(2)}:{self.min_inicio.zfill(2)} - ' \
-               f'{self.hora_fim.zfill(2)}:{self.min_fim.zfill(2)}'.upper()
+        return f'{self.hora_inicio}:{self.min_inicio} - ' \
+               f'{self.hora_fim}:{self.min_fim}'.upper()
 
     def view_duracao_min(self):
         # ini = datetime.time(int(self.hora_inicio), int(self.min_inicio), 00)
@@ -187,16 +187,16 @@ class Horario(models.Model):
             datetime.datetime.now().year,
             datetime.datetime.now().month,
             datetime.datetime.now().day,
-            int(self.hora_inicio),
-            int(self.min_inicio),
+            00 if self.hora_inicio == None else int(self.hora_inicio.zfill(2)),
+            00 if self.min_inicio == None else int(self.min_inicio.zfill(2)),
             00
         )
         fim = datetime.datetime(
             datetime.datetime.now().year,
             datetime.datetime.now().month,
             datetime.datetime.now().day,
-            int(self.hora_fim.zfill(2)),
-            int(self.min_fim.zfill(2)),
+            00 if self.hora_fim == None else int(self.hora_fim.zfill(2)),
+            00 if self.min_fim == None else int(self.min_fim.zfill(2)),
             00
         )
 
@@ -334,3 +334,16 @@ class HistoricoAluno(models.Model):
 
     def __str__(self):
         return f'{self.turma}: {self.aluno}'
+
+# class HistoricoAlunoPre(models.Model):
+#     id = models.AutoField(primary_key=True,)
+#     created_at = models.DateField(auto_now_add=True)
+#
+#     turma = models.ForeignKey(Turma, null=True, on_delete=models.RESTRICT)  # FK turma
+#     aluno = models.ForeignKey(Aluno, null=True, on_delete=models.RESTRICT)  # FK aluno
+#
+#     numero_aulas = models.IntegerField(blank=True, null=True, default='')
+#     numero_faltas = models.IntegerField(blank=True, null=True, default='')
+#
+#     def __str__(self):
+#         return self.id

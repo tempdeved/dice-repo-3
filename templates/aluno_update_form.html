@@ -2,13 +2,13 @@
 {% extends 'base.html' %}
 {% block main %}
 
-<b> Atualizar Horário</b>
+<b> Editar Aluno</b>
 
 <br>
 
 <!--<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">-->
 
-<form action="{% url 'horario-update' horario.id %}", method="POST">
+<form action="{% url 'aluno-update' aluno.id %}" method="POST">
 
     <!--  csrf_token atack protect  -->
     {% csrf_token %}
@@ -17,7 +17,7 @@
 
     <button class="btn btn-info"
             type="submit">
-        Atualizar
+        Salvar
     </button>
 
 </form>
