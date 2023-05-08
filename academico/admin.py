@@ -1,4 +1,5 @@
 from django.contrib import admin
+from import_export.admin import ImportExportModelAdmin
 from . import models
 
 # @admin.register(models.HistoricoAlunoPre)
@@ -30,7 +31,7 @@ class FuncionarioAdmin(admin.ModelAdmin):
 
 
 @admin.register(models.Aluno)
-class AlunoAdmin(admin.ModelAdmin):
+class AlunoAdmin(ImportExportModelAdmin, admin.ModelAdmin):
     # fields = () #campos para cadastrar
     list_display = (
         'id',

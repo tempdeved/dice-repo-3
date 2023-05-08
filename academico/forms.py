@@ -2,7 +2,9 @@ from django.forms import ModelForm
 from django import forms
 from django.contrib import admin
 from . import models
-
+from import_export.admin import ImportExportModelAdmin
+from import_export.forms import ImportExportFormBase
+from import_export.forms import ImportForm
 
 BIRTH_YEAR_CHOICES = ["1980", "1981", "1982"]
 STATUS_CHOICE = [
@@ -16,6 +18,7 @@ FAVORITE_COLORS_CHOICES = [
 ]
 
 
+# class AlunoForm(ImportForm):
 class AlunoForm(ModelForm):
     class Meta:
         model = models.Aluno
