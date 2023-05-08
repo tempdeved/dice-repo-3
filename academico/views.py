@@ -160,8 +160,6 @@ class Aluno():
 
         if request.method == "POST":
             if form.is_valid():
-                # post = form.save(commit=False)
-                # post.save()
                 form.save()
                 return redirect('alunos')
         else:
