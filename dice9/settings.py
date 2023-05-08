@@ -136,8 +136,13 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 # STATIC_URL = 'static/'
+images = 'images'
 STATIC_URL = "/static/"
-MEDIA_URL = '/images/'
+MEDIA_URL = f'/{images}/'
+try:
+    os.mkdir(images)
+except Exception as err:
+    print(f'{images} já existe' )
 
 STATICFILES_DIRS = (os.path.join(BASE_DIR, "static"),)
 
