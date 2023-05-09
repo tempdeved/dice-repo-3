@@ -24,7 +24,7 @@
             <th scope="col">  tel trabalho pai </th>
             <th scope="col">  detalhe </th>
             <th scope="col">  editar </th>
-            <th scope="col">  foto </th>
+<!--            <th scope="col">  foto </th>-->
         </tr>
         </thead>
         <tbody>
@@ -43,14 +43,14 @@
                 <td> <a href="#">  {{ aluno.tel_trabalho_pai}} </a> </td>
                 <td> <a href="{{ aluno.get_absolute_url }}"> link </a> </td>
                 <td> <a href="{% url 'aluno-update' aluno.id %}">  link </a> </td>
-                <td>
-                <a href="#">
-                    {% if aluno.foto %}
-                        <img src="{{ MEDIA_URL }}{{aluno.foto}}" class="img-responsive" alt="..." width="60" height="60" >
+<!--                <td>-->
+<!--                <a href="#">-->
+<!--                    {% if aluno.foto %}-->
+<!--                        <img src="{{ MEDIA_URL }}{{aluno.foto}}" class="img-responsive" alt="..." width="60" height="60" >-->
 
-                    {% endif %}
-                </a>
-                </td>
+<!--                    {% endif %}-->
+<!--                </a>-->
+<!--                </td>-->
         </tr>
     {% endfor %}
     <tbody>
