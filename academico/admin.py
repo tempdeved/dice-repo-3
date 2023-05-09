@@ -59,7 +59,7 @@ class AlunoAdmin(ImportExportModelAdmin, admin.ModelAdmin):
 
 
 @admin.register(models.Horario)
-class HorarioAdmin(admin.ModelAdmin):
+class HorarioAdmin(ImportExportModelAdmin, admin.ModelAdmin):
     # fields = () #campos para cadastrar
     list_display = (
         'dia_semana',
@@ -77,7 +77,7 @@ class HorarioAdmin(admin.ModelAdmin):
 
 
 @admin.register(models.Turma)
-class TurmaAdmin(admin.ModelAdmin):
+class TurmaAdmin(ImportExportModelAdmin, admin.ModelAdmin):
     # fields = () #campos para cadastrar
     list_display = (
         'v_created_at',
@@ -128,11 +128,10 @@ class TurmaAdmin(admin.ModelAdmin):
         except:
             return f'Não Cadastrado'
 
-    pass
 
 
 @admin.register(models.HistoricoAluno)
-class HistoricoAlunoAdmin(admin.ModelAdmin):
+class HistoricoAlunoAdmin(ImportExportModelAdmin, admin.ModelAdmin):
     # fields = () #campos para cadastrar
     list_display = (
         'v_created_at',

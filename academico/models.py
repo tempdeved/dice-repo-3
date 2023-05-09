@@ -243,6 +243,16 @@ class Turma(models.Model):
         ('op beginer I', 'op beginer I'),
         ('op beginer II', 'op beginer II'),
         ('op beginer III', 'op beginer III'),
+        ('op intermediate I', 'op intermediate I'),
+        ('op intermediate II', 'op intermediate II'),
+        ('op advanced I', 'op advanced I'),
+        ('op advanced II', 'op advanced II'),
+        ('op advanced III', 'op advanced III'),
+        ('op advanced IV', 'op advanced IV'),
+        ('simbolico', 'simbolico'),
+        ('simbolico intuitivo I', 'simbolico intuitivo I'),
+        ('sensório motor II', 'sensório motor II'),
+
     )
     nivel = models.CharField(max_length=100, blank=True, null=True, default='', choices=nivel_choice) #list ([op beginer I, op beginer II]  )
     inicio = models.DateField(blank=True, null=True, default='')

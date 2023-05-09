@@ -26,10 +26,11 @@ class AlunoForm(ModelForm):
 
 
 class AlunoSearch(ModelForm):
+    # aluno_query = models.Funcionario.objects.values(status='ativo')
     class Meta:
         model = models.Aluno
         fields = ('nome', )
-    # aluno_id = forms.CharField(label="aluno_id", max_length=100)
+    # aluno_id = forms.(label="aluno_id", max_length=100)
     # class Meta:
     #     model = models.Aluno
     #     fields = '__all__'

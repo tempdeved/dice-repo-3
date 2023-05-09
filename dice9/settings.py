@@ -143,7 +143,7 @@ MEDIA_URL = f'/{images}/'
 try:
     os.mkdir(images)
 except Exception as err:
-    print(f'{images} já existe' )
+    pass
 
 STATICFILES_DIRS = (os.path.join(BASE_DIR, "static"),)
 

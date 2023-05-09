@@ -119,12 +119,19 @@ from django.views import generic
 from django.shortcuts import get_object_or_404
 
 def aluno_id(request, id):
-    aluno = get_object_or_404(models.Aluno, pk=id)
-    form = forms.AlunoSearch()
+    aluno = models.Aluno.objects.get(id=id)
+    # aluno = get_object_or_404(models.Aluno, pk=id)
+    alunos_ativos = models.Aluno.objects.all()
+    turmas_ativa = models.Turma.objects.filter(aluno=id, status='ativa')
+    turmas_encerradas = models.Turma.objects.all().filter(aluno=id).exclude(status='ativa')
+
+    # form = forms.AlunoSearch()
 
     result = {
-        'form_search': form,
-        'aluno': aluno
+        'alunos_ativos': alunos_ativos,
+        'aluno': aluno,
+        'turmas_ativa': turmas_ativa, #aluno pode estar em duas turmas ativas? se sim... fazer loop no template
+        'turmas_encerradas': turmas_encerradas, #aluno pode estar em duas turmas ativas? se sim... fazer loop no template
     }
 
     response = render(
@@ -277,7 +284,8 @@ class Horario():
 
     def list(elf, request):
         if not request.user.is_authenticated:
-            NOT_AUTH
+            response = not_auth(request)
+            return response
         else:
             horario = models.Horario.objects.all()
 
