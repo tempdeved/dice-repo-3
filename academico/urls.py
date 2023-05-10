@@ -47,6 +47,12 @@ urlpatterns = [
 
                   path('horario-update-form/<int:pk>', views.Horario().update_form, name='horario-update-form'),
                   # path('horario-update/', views.Horario().update, name='horario-update'),
+
+                  path('aluno-search-name/', views.Aluno().search_name, name='aluno-search-name'),
+
+                  path('aluno-pdf/<int:id>', views.Aluno().pdf, name='aluno-pdf'),
+
+
               ] + static(
     settings.MEDIA_URL,
     document_root=settings.MEDIA_ROOT

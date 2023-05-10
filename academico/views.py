@@ -3,7 +3,29 @@ from django.http import HttpResponse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.views.generic import ListView
+#
+from django.template.loader import get_template
+import xhtml2pdf.pisa as pisa
+import io
+from django.views.generic.base import View
+import csv
 
+class Render:
+    @staticmethod
+    def render(path: str, params: dict, filename: str):
+        template = get_template(path)
+        html = template.render(params)
+        response = io.BytesIO()
+        pdf = pisa.pisaDocument(
+            io.BytesIO(html.encode("UTF-8")), response)
+        if not pdf.err:
+            response = HttpResponse(
+                response.getvalue(), content_type='application/pdf')
+            response['Content-Disposition'] = 'attachment;filename=%s.pdf' % filename
+            return response
+        else:
+            return HttpResponse("Error Rendering PDF", status=400)
+#
 from . import models
 from . import forms
 
@@ -72,7 +94,8 @@ def alunos(request):
 
         return response
     else:
-        alunos = models.Aluno.objects.all()
+        alunos = models.Aluno.objects.all()[:10]
+        # alunos = models.Aluno.objects.all().filter(nome__icontains='JOAO')
 
         result = {
             'alunos': alunos,
@@ -154,6 +177,51 @@ class Aluno():
 
     def update_form(self):
         pass
+
+    def search_name(self, request):
+
+        nome = request.GET.get("nome")
+
+        alunos = models.Aluno.objects.all().filter(nome__icontains=nome)
+
+        result = {
+            'alunos': alunos,
+        }
+
+        response = render(
+            request=request,
+            template_name='alunos.html',
+            context=result,
+        )
+
+        return response
+
+
+    def pdf(self, request, id):
+
+        aluno = models.Aluno.objects.get(id=id)
+        alunos_ativos = models.Aluno.objects.all()
+        turmas_ativa = models.Turma.objects.filter(aluno=id, status='ativa')
+        turmas_encerradas = models.Turma.objects.all().filter(aluno=id).exclude(status='ativa')
+
+        result = {
+            'alunos_ativos': alunos_ativos,
+            'aluno': aluno,
+            'turmas_ativa': turmas_ativa,
+            'turmas_encerradas': turmas_encerradas,
+        }
+
+        # response = render(
+        #     request=request,
+        #     template_name='aluno_pdf.html',
+        #     context=result,
+        # )
+        response = Render.render(
+            path='aluno_pdf.html',
+            params=result,
+            filename='relatorio_aluno'
+        )
+        return response
 
     def update(self, request, id):
 
@@ -502,28 +570,7 @@ def funcionarios(request):
 
 ######
 
-from django.http import HttpResponse
-from django.template.loader import get_template
-import xhtml2pdf.pisa as pisa
-import io
-from django.views.generic.base import View
-import csv
 
-class Render:
-    @staticmethod
-    def render(path: str, params: dict, filename: str):
-        template = get_template(path)
-        html = template.render(params)
-        response = io.BytesIO()
-        pdf = pisa.pisaDocument(
-            io.BytesIO(html.encode("UTF-8")), response)
-        if not pdf.err:
-            response = HttpResponse(
-                response.getvalue(), content_type='application/pdf')
-            response['Content-Disposition'] = 'attachment;filename=%s.pdf' % filename
-            return response
-        else:
-            return HttpResponse("Error Rendering PDF", status=400)
 
 
 class Pdf(View):

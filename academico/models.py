@@ -9,8 +9,8 @@ class Aluno(models.Model):
     id = models.AutoField(primary_key=True,)
     created_at = models.DateField(auto_now_add=True)
     nome = models.CharField(max_length=100, blank=True, null=True, default='')
-    nome_do_meio = models.CharField(max_length=100, blank=True, null=True, default='')
-    ultimo_nome = models.CharField(max_length=100, blank=True, null=True, default='')
+    # nome_do_meio = models.CharField(max_length=100, blank=True, null=True, default='')
+    # ultimo_nome = models.CharField(max_length=100, blank=True, null=True, default='')
     status_choice = (
         ('ativo', 'ativo'),
         ('encerrado', 'encerrado'),
@@ -82,7 +82,7 @@ class Aluno(models.Model):
 
     @admin.display(description='Nome Completo')
     def full_name(self):
-        return f'{self.nome} {self.nome_do_meio} {self.ultimo_nome}'
+        return f'{self.nome}'
 
     @admin.display(description='Mês Nasc')
     def mes_nascimento(self):

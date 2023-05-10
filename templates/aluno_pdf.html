@@ -1,6 +1,9 @@
+<head>
+  <title>{{ school_name | default:"Dice English" }}</title>
+</head>
 
-{% extends 'base.html' %}
-{% block main %}
+<body
+  class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
 
 <br>
     <table class="table table-striped  table-hover table-responsive" style="text-transform:uppercase;" >
@@ -167,11 +170,4 @@
     {% endfor %}
     <tbody>
     </table>
-
-
-<form action="{% url 'aluno-pdf' aluno.id %}" method="GET">
-    <button class="btn btn-info size-sm" type="submit"> PDF ALuno </button>
-</form>
-
-
-{% endblock %}
+</body>
