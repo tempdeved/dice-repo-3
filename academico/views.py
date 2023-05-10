@@ -133,12 +133,6 @@ def aluno(request):
     )
     return response
 
-
-# def aluno_id(request, id):
-#     request = f'ola, ID: {id}'
-#     response = HttpResponse(request)
-
-from django.views import generic
 from django.shortcuts import get_object_or_404
 
 def aluno_id(request, id):
@@ -200,12 +194,10 @@ class Aluno():
     def pdf(self, request, id):
 
         aluno = models.Aluno.objects.get(id=id)
-        alunos_ativos = models.Aluno.objects.all()
         turmas_ativa = models.Turma.objects.filter(aluno=id, status='ativa')
         turmas_encerradas = models.Turma.objects.all().filter(aluno=id).exclude(status='ativa')
 
         result = {
-            'alunos_ativos': alunos_ativos,
             'aluno': aluno,
             'turmas_ativa': turmas_ativa,
             'turmas_encerradas': turmas_encerradas,

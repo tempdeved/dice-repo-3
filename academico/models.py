@@ -96,7 +96,7 @@ class Aluno(models.Model):
         return reverse('aluno-detail', args=[str(self.id)])
 
     def __str__(self):
-        return f'{self.nome} {self.ultimo_nome}'.upper()
+        return f'{self.nome}'.upper()
 
 
 class Funcionario(models.Model):
@@ -115,7 +115,7 @@ class Funcionario(models.Model):
         ('professor', 'professor'),
     )
     funcao = models.CharField(max_length=30 , blank=True, null=True, default='', choices=funcao_choices)  # [1=gerente, 2=recep, 3=professor]
-    senha = models.CharField(max_length=100, blank=True, null=True, default='')
+    # senha = models.CharField(max_length=100, blank=True, null=True, default='')
     telefone1 = models.CharField(max_length=20, blank=True, null=True, default='')
     telefone2 = models.CharField(max_length=20, blank=True, null=True, default='')
     dat_nasc = models.DateField( blank=True, null=True, default='')
