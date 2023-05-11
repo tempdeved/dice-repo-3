@@ -51,6 +51,7 @@ urlpatterns = [
                   path('aluno-search-name/', views.Aluno().search_name, name='aluno-search-name'),
 
                   path('aluno-pdf/<int:id>', views.Aluno().pdf, name='aluno-pdf'),
+                  path('turma-pdf/<int:id>', views.Aluno().pdf, name='turma-pdf'),
 
 
               ] + static(
