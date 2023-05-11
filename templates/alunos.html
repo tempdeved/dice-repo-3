@@ -2,68 +2,244 @@
 {% extends 'base.html' %}
 {% block main %}
 
+<!--<style>-->
+<!--    html, body{-->
+<!--      margin:0;-->
+<!--      padding:0;-->
+<!--      height:100%;-->
+<!--    }-->
+
+<!--    section {-->
+<!--      position: relative;-->
+<!--      border: 1px solid #000;-->
+<!--      padding-top: 37px;-->
+<!--      background: #500;-->
+<!--    }-->
+<!--    section.positioned {-->
+<!--      position: absolute;-->
+<!--      top:100px;-->
+<!--      left:100px;-->
+<!--      width:800px;-->
+<!--      box-shadow: 0 0 15px #333;-->
+<!--    }-->
+<!--    .container {-->
+<!--      overflow-y: auto;-->
+<!--      height: 160px;-->
+<!--    }-->
+<!--    table {-->
+<!--      border-spacing: 0;-->
+<!--      width:100%;-->
+<!--    }-->
+<!--    td + td {-->
+<!--      border-left:1px solid #eee;-->
+<!--    }-->
+<!--    td, th {-->
+<!--      border-bottom:1px solid #eee;-->
+<!--      background: #ddd;-->
+<!--      color: #000;-->
+<!--      padding: 10px 25px;-->
+<!--    }-->
+<!--    th {-->
+<!--      height: 0;-->
+<!--      line-height: 0;-->
+<!--      padding-top: 0;-->
+<!--      padding-bottom: 0;-->
+<!--      color: transparent;-->
+<!--      border: none;-->
+<!--      white-space: nowrap;-->
+<!--    }-->
+<!--    th div{-->
+<!--      position: absolute;-->
+<!--      background: transparent;-->
+<!--      color: #fff;-->
+<!--      padding: 9px 25px;-->
+<!--      top: 0;-->
+<!--      margin-left: -25px;-->
+<!--      line-height: normal;-->
+<!--      border-left: 1px solid #800;-->
+<!--    }-->
+<!--    th:first-child div{-->
+<!--      border: none;-->
+<!--    }-->
+<!--</style>-->
+
 <style>
-    html, body{
-      margin:0;
-      padding:0;
-      height:100%;
-    }
+body {
+  font-family: "Segoe UI", -apple-system, BlinkMacSystemFont, Roboto,
+    Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+  line-height: 1.4;
+  color: #333;
+  background-color: #fff;
+  padding: 0 ;
+  #5vw
+}
 
-    section {
-      position: relative;
-      border: 1px solid #000;
-      padding-top: 37px;
-      background: #500;
-    }
-    section.positioned {
-      position: absolute;
-      top:100px;
-      left:100px;
-      width:800px;
-      box-shadow: 0 0 15px #333;
-    }
-    .container {
-      overflow-y: auto;
-      height: 160px;
-    }
-    table {
-      border-spacing: 0;
-      width:100%;
-    }
-    td + td {
-      border-left:1px solid #eee;
-    }
-    td, th {
-      border-bottom:1px solid #eee;
-      background: #ddd;
-      color: #000;
-      padding: 10px 25px;
-    }
-    th {
-      height: 0;
-      line-height: 0;
-      padding-top: 0;
-      padding-bottom: 0;
-      color: transparent;
-      border: none;
-      white-space: nowrap;
-    }
-    th div{
-      position: absolute;
-      background: transparent;
-      color: #fff;
-      padding: 9px 25px;
-      top: 0;
-      margin-left: -25px;
-      line-height: normal;
-      border-left: 1px solid #800;
-    }
-    th:first-child div{
-      border: none;
-    }
+/* Standard Tables */
+
+table {
+  margin: 1em 0;
+  border-collapse: collapse;
+  border: 0.1em solid #d6d6d6;
+}
+
+caption {
+  text-align: left;
+  #font-style: italic;
+  #padding: 0.25em 0.5em 0.5em 0.5em;
+}
+
+th, td {
+  padding: 0.25em 0.5em 0.25em 1em;
+  vertical-align: text-top;
+  text-align: left;
+  text-indent: -0.5em;
+}
+
+th {
+  vertical-align: bottom;
+  background-color: #666;
+  color: #fff;
+  #2
+  white-space: nowrap;
+
+}
+
+tr:nth-child(even) th[scope=row] {
+  background-color: #f2f2f2;
+}
+
+tr:nth-child(odd) th[scope=row] {
+  background-color: #fff;
+}
+
+tr:nth-child(even) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+tr:nth-child(odd) {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.colheaders td:nth-of-type(2) {
+  #font-style: italic;
+}
+
+.colheaders th:nth-of-type(3),
+.colheaders td:nth-of-type(3) {
+  text-align: right;
+}
+
+.rowheaders td:nth-of-type(1) {
+  #font-style: italic;
+}
+
+.rowheaders th:nth-of-type(3),
+.rowheaders td:nth-of-type(2) {
+  text-align: left;
+}
+
+/* Fixed Headers */
+
+th {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  z-index: 2;
+
+  white-space: nowrap;
+}
+
+th[scope=row] {
+  position: -webkit-sticky;
+  position: sticky;
+  left: 0;
+  z-index: 1;
+}
+
+th[scope=row] {
+  vertical-align: top;
+  color: inherit;
+  background-color: inherit;
+  background: linear-gradient(90deg, transparent 0%, transparent calc(100% - .05em), #d6d6d6 calc(100% - .05em), #d6d6d6 100%);
+}
+
+th:not([scope=row]):first-child {
+  left: 0;
+  z-index: 3;
+  background: linear-gradient(90deg, #666 0%, #666 calc(100% - .05em), #ccc calc(100% - .05em), #ccc 100%);
+}
+
+/* Scrolling wrapper */
+
+div[tabindex="0"][aria-labelledby][role="region"] {
+  overflow: auto;
+}
+
+div[tabindex="0"][aria-labelledby][role="region"]:focus {
+  box-shadow: 0 0 .5em rgba(0,0,0,.5);
+  outline: .1em solid rgba(0,0,0,.1);
+}
+
+div[tabindex="0"][aria-labelledby][role="region"] table {
+  margin: 0;
+}
+
+div[tabindex="0"][aria-labelledby][role="region"].rowheaders {
+  background:
+    linear-gradient(to right, transparent 30%, rgba(255,255,255,0)),
+    linear-gradient(to right, rgba(255,255,255,0), white 70%) 0 100%,
+    radial-gradient(farthest-side at 0% 50%, rgba(0,0,0,0.2), rgba(0,0,0,0)),
+    radial-gradient(farthest-side at 100% 50%, rgba(0,0,0,0.2), rgba(0,0,0,0)) 0 100%;
+  background-repeat: no-repeat;
+  background-color: #fff;
+  background-size: 4em 100%, 4em 100%, 1.4em 100%, 1.4em 100%;
+  background-position: 0 0, 100%, 0 0, 100%;
+  background-attachment: local, local, scroll, scroll;
+}
+
+div[tabindex="0"][aria-labelledby][role="region"].colheaders {
+  background:
+    linear-gradient(white 30%, rgba(255,255,255,0)),
+    linear-gradient(rgba(255,255,255,0), white 70%) 0 100%,
+    radial-gradient(farthest-side at 50% 0, rgba(0,0,0,.2), rgba(0,0,0,0)),
+    radial-gradient(farthest-side at 50% 100%, rgba(0,0,0,.2), rgba(0,0,0,0)) 0 100%;
+  background-repeat: no-repeat;
+  background-color: #fff;
+  background-size: 100% 4em, 100% 4em, 100% 1.4em, 100% 1.4em;
+  background-attachment: local, local, scroll, scroll;
+}
+
+/* Strictly for making the scrolling happen. */
+
+th[scope=row] {
+  min-width: 40vw;
+}
+
+@media all and (min-width: 30em) {
+  th[scope=row] {
+    min-width: 20em;
+  }
+}
+
+th[scope=row] + td {
+  min-width: 24em;
+}
+
+div[tabindex="0"][aria-labelledby][role="region"]:nth-child(3) {
+  max-height: 18em;
+}
+
+div[tabindex="0"][aria-labelledby][role="region"]:nth-child(7) {
+  max-height: 15em;
+  margin: 0 1em;
+}
+
+div{
+  max-height: 500px;
+  #height: 100px;
+  }
+
 </style>
-
-
 
 <form action="{% url 'aluno-search-name' %}" method="GET">
     <input type="text" name="nome" placeholder="nome">
@@ -72,84 +248,57 @@
 
 <br>
 
-<!--<tr>-->
-<!--    <th scope="col" colspan="12">  <h3> ALUNOS </h3> </th>-->
-<!--</tr>-->
-
-<h3> ALUNOS </h3>
-
-<section class="">
-  <div class="container">
-    <table class="table table-striped" style="text-transform:uppercase;" >
-
-      <thead>
-        <tr class="header">
-          <th>
-             nome  <div> nome </div>
-          </th>
-          <th>
-             status  <div> status </div>
-          </th>
-          <th>
-             nasc  <div> nasc </div>
-          </th>
-          <th>
-             telefone1  <div> telefone1 </div>
-          </th>
-          <th>
-             n irmãos  <div> n irmãos </div>
-          </th>
-          <th>
-            tel responsavel  <div>tel responsavel </div>
-          </th>
-          <th>
-            bolsista  <div>bolsista </div>
-          </th>
-          <th>
-            celular mae  <div>celular mae </div>
-          </th>
-          <th>
-            tel trabalho mae  <div>tel trabalho mae </div>
-          </th>
-          <th>
-            celular pai  <div>celular pai </div>
-          </th>
-          <th>
-            tel trabalho pai  <div>tel trabalho pai </div>
-          </th>
-          <th>
-            detalhe  <div>detalhe </div>
-          </th>
-          <th>
-            editar  <div>editar </div>
-          </th>
-        </tr>
-      </thead>
+<h3> ALUNOS</h3>
 
 
-      <tbody>
-
-    {% for aluno in alunos %}
+<!--1-->
+  <div  role="region" aria-labelledby="HeadersCol" tabindex="0" class="rowheaders">
+     <table style="text-transform:uppercase;" >
+         <caption id="HeadersRow">Lista de Alunos</caption>
+        <thead>
         <tr>
-            <td > <a href="#">  {{ aluno.nome  | default_if_none:""}} </a> </td>
-<!--            <th class="row"> <a href="#">  {{ aluno.nome  | default_if_none:""}} </a> </th>-->
-            <td>  {{ aluno.status  | default_if_none:""}} </td>
-            <td>  {{ aluno.dat_nasc |date:'d-M-y' | default_if_none:""}} </td>
-            <td>  {{ aluno.telefone1  | default_if_none:""}} </td>
-            <td>  {{ aluno.n_irmaos  | default_if_none:""}} </td>
-            <td>  {{ aluno.tel_responsavel_financeiro | default_if_none:""}} </td>
-            <td>  {{ aluno.bolsista | default_if_none:""}} </td>
-            <td>  {{ aluno.celular_mae | default_if_none:""}} </td>
-            <td>  {{ aluno.tel_trabalho_mae | default_if_none:""}} </td>
-            <td>  {{ aluno.celular_pai | default_if_none:""}} </td>
-            <td>  {{ aluno.tel_trabalho_pai | default_if_none:""}} </td>
-            <td> <a href="{{ aluno.get_absolute_url }}"> link </a> </td>
-            <td> <a href="{% url 'aluno-update' aluno.id %}">  link </a> </td>
+            <th>  nome </th>
+            <th>  status </th>
+            <th>  dat nascimento </th>
+            <th>  telefone1 </th>
+            <th>  n irmãos </th>
+            <th>  tel responsavel financeiro </th>
+            <th>  bolsista </th>
+            <th>  celular mae </th>
+            <th>  tel trabalho mae </th>
+            <th>  celular pai </th>
+            <th>  tel trabalho pai </th>
+            <th>  editar </th>
+        </tr>
+        </thead>
+        <tbody>
+
+        {% for aluno in alunos %}
+        <tr>
+            <th scope="row">
+                <a href="{{ aluno.get_absolute_url }}">
+                    {{ aluno.id  | default_if_none:"" }} - {{ aluno.full_name  | default_if_none:"" }}
+                </a> </th>
+                <td> {{ aluno.status  | default_if_none:"" }} </td>
+                <td> {{ aluno.dat_nasc |date:'d-M-Y' | default_if_none:"" }} </td>
+                <td> {{ aluno.telefone1 | default_if_none:"" }} </td>
+                <td> {{ aluno.n_irmaos | default_if_none:"" }} </td>
+                <td> {{ aluno.tel_responsavel_financeiro | default_if_none:"" }} </td>
+                <td> {{ aluno.bolsista | default_if_none:"" }} </td>
+                <td> {{ aluno.celular_mae | default_if_none:"" }} </td>
+                <td> {{ aluno.tel_trabalho_mae | default_if_none:"" }} </td>
+                <td> {{ aluno.celular_pai | default_if_none:"" }} </td>
+                <td> {{ aluno.tel_trabalho_pai | default_if_none:"" }} </td>
+                <td> <a href="{% url 'aluno-update' aluno.id %}">  link </a> </td>
         </tr>
      {% endfor %}
-      </tbody>
+
+    <tbody>
     </table>
   </div>
-</section>
+
+
+<!--2-->
+
 
 {% endblock %}

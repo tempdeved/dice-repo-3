@@ -94,7 +94,7 @@ def alunos(request):
 
         return response
     else:
-        alunos = models.Aluno.objects.all()[:10]
+        alunos = models.Aluno.objects.all()[:100]
         # alunos = models.Aluno.objects.all().filter(nome__icontains='JOAO')
 
         result = {

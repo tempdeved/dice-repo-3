@@ -171,6 +171,7 @@ class Horario(models.Model):
     min_inicio = models.CharField(max_length=2, blank=True, null=True, default='', choices=min_ini_choice)
     hora_fim = models.CharField(max_length=2, blank=True, null=True, default='', choices=hora_fim_choice)
     min_fim = models.CharField(max_length=2, blank=True, null=True, default='', choices=min_fim_choice)
+    # teste = models.TimeField(auto_now=False, auto_now_add=False,default=1 )
     # duracao_min = models.CharField(max_length=2, blank=True, null=True, default='')
     # time_travel = models.TimeField('tempo', null=True, blank=True)
     # duration_travel = models.DurationField('duração', null=True, blank=True)
