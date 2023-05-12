@@ -1,0 +1,46 @@
+
+
+<h3> ALUNOS</h3>
+
+<!--1-->
+  <div  role="region" aria-labelledby="HeadersCol" tabindex="0" class="rowheaders limit-table">
+     <table style="text-transform:uppercase;" >
+        <thead>
+        <tr>
+            <th style="white-space:nowrap">  nome </th>
+            <th style="white-space:nowrap">  status </th>
+            <th style="white-space:nowrap">  dat nascimento </th>
+            <th style="white-space:nowrap">  telefone1 </th>
+            <th style="white-space:nowrap">  n irmãos </th>
+            <th style="white-space:nowrap">  tel responsavel financeiro </th>
+            <th style="white-space:nowrap">  bolsista </th>
+            <th style="white-space:nowrap">  celular mae </th>
+            <th style="white-space:nowrap">  tel trabalho mae </th>
+            <th style="white-space:nowrap">  celular pai </th>
+            <th style="white-space:nowrap">  tel trabalho pai </th>
+        </tr>
+        </thead>
+        <tbody>
+
+        {% for aluno in alunos %}
+        <tr>
+            <th scope="row" style="white-space:nowrap">
+                <a href="{{ aluno.get_absolute_url }}">
+                    {{ aluno.id  | default_if_none:"" }} - {{ aluno.full_name  | default_if_none:"" }}
+                </a> </th>
+                <td nowrap> {{ aluno.status  | default_if_none:"" }} </td>
+                <td nowrap> {{ aluno.dat_nasc |date:'d-M-Y' | default_if_none:"" }} </td>
+                <td nowrap> {{ aluno.telefone1 | default_if_none:"" }} </td>
+                <td nowrap> {{ aluno.n_irmaos | default_if_none:"" }} </td>
+                <td nowrap> {{ aluno.tel_responsavel_financeiro | default_if_none:"" }} </td>
+                <td nowrap> {{ aluno.bolsista | default_if_none:"" }} </td>
+                <td nowrap> {{ aluno.celular_mae | default_if_none:"" }} </td>
+                <td nowrap> {{ aluno.tel_trabalho_mae | default_if_none:"" }} </td>
+                <td nowrap> {{ aluno.celular_pai | default_if_none:"" }} </td>
+                <td nowrap> {{ aluno.tel_trabalho_pai | default_if_none:"" }} </td>
+        </tr>
+     {% endfor %}
+
+    <tbody>
+    </table>
+  </div>

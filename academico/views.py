@@ -1,3 +1,5 @@
+import datetime
+
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth import authenticate, login, logout
@@ -96,9 +98,10 @@ def alunos(request):
     else:
         alunos = models.Aluno.objects.all()[:100]
         # alunos = models.Aluno.objects.all().filter(nome__icontains='JOAO')
-
+        now = datetime.datetime.now()
         result = {
             'alunos': alunos,
+            'now': f'{now.year}-{str(now.month).zfill(2)}'
         }
 
         response = render(
@@ -172,14 +175,43 @@ class Aluno():
     def update_form(self):
         pass
 
-    def search_name(self, request):
+    def search(self, request):
 
         nome = request.GET.get("nome")
+        bday = request.GET.get("bday")
+        pdf = request.GET.get("pdf")
 
-        alunos = models.Aluno.objects.all().filter(nome__icontains=nome)
 
+        if nome is not None:
+            alunos = models.Aluno.objects.all().filter(nome__icontains=nome)
+        elif pdf == 'PDF':
+            alunos = models.Aluno.objects.all().filter(
+                dat_nasc__year=bday[:4],
+                dat_nasc__month=bday[5:],
+            )
+            result = {
+                'alunos': alunos,
+            }
+
+            # esse RENDER é do gerador de PDF e não do Django
+            response = Render.render(
+                path='aniversariantes_pdf.html',
+                params=result,
+                filename=f'aniversariantes_{bday[:4]}_{bday[:2]}'
+            )
+            return response
+        elif bday is not None:
+            alunos = models.Aluno.objects.all().filter(
+                dat_nasc__year=bday[:4],
+                dat_nasc__month=bday[5:],
+            )
+        else:
+            alunos = models.Aluno.objects.all()[:10]
+
+        now = datetime.datetime.now()
         result = {
             'alunos': alunos,
+            'now': f'{now.year}-{str(now.month).zfill(2)}'
         }
 
         response = render(
@@ -191,7 +223,7 @@ class Aluno():
         return response
 
 
-    def pdf(self, request, id):
+    def pdf_aluno_detalhe(self, request, id):
 
         aluno = models.Aluno.objects.get(id=id)
         turmas_ativa = models.Turma.objects.filter(aluno=id, status='ativa')
@@ -203,15 +235,28 @@ class Aluno():
             'turmas_encerradas': turmas_encerradas,
         }
 
-        # response = render(
-        #     request=request,
-        #     template_name='aluno_pdf.html',
-        #     context=result,
-        # )
+        # esse RENDER é do gerador de PDF e não do Django
         response = Render.render(
             path='aluno_pdf.html',
             params=result,
             filename='relatorio_aluno'
+        )
+        return response
+    def pdf_aniversariantes(self, request, bday):
+
+        alunos = models.Aluno.objects.all().filter(
+            dat_nasc__year=bday[:4],
+            dat_nasc__month=bday[5:],
+        )
+        result = {
+            'alunos': alunos,
+        }
+
+        # esse RENDER é do gerador de PDF e não do Django
+        response = Render.render(
+            path='aniversariantes.html',
+            params=result,
+            filename=f'aniversariantes_{bday[:4]}_{bday[:2]}'
         )
         return response
 
@@ -375,8 +420,10 @@ class Turmas():
         else:
             turmas = models.Turma.objects.all()
 
+            now = datetime.datetime.now()
             result = {
-                'turmas': turmas
+                'turmas': turmas,
+                'now': f'{now.year}'
             }
 
             response = render(
@@ -445,6 +492,70 @@ class Turmas():
                 return redirect('turmas')
         else:
             return render(request, 'turma_update_form.html', data )
+
+    def search(self, request):
+
+        year = request.GET.get("ano")
+        status = request.GET.get("status")
+        # pdf = request.GET.get("pdf")
+
+
+        if (year is not None) and (status is not None):
+            turmas = models.Turma.objects.all().filter(
+                created_at__year=year,
+                status=status
+            )
+
+        elif (year is None) and (status is not None):
+            turmas = models.Turma.objects.all().filter(
+                status=status
+            )
+        else:
+            turmas = models.Turma.objects.all().filter(
+                status=status
+            )[:10]
+
+        now = datetime.datetime.now()
+        result = {
+            'turmas': turmas,
+            'now': f'{now.year}'
+        }
+
+        response = render(
+            request=request,
+            template_name='turmas.html',
+            context=result,
+        )
+
+        return response
+
+    def nota(self, request):
+
+        print('')
+
+        id = request.POST["id"]
+        research_01 = request.POST["research_01"]
+        turma = request.POST["turma"]
+        organization_01 = request.POST["organization_01"]
+
+        # result_query = get_object_or_404(models.Turma, pk=id)
+        turma = models.Turma.objects.get(id=turma)
+        historico = models.HistoricoAluno.objects.all().filter(
+            aluno__id=id,
+        )
+
+        data = {
+            'turma': turma,
+            'research_01': research_01
+        }
+
+        response = render(
+            request=request,
+            template_name='turma_detalhe.html',
+            context=data,
+        )
+
+        return response
 
 
 class Funcionario():

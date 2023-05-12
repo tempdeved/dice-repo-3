@@ -2,40 +2,45 @@
 {% extends 'base.html' %}
 {% block main %}
 
-<table class="table table-striped  table-hover table-responsive" style="text-transform:uppercase;" >
-    <thead>
-        <tr>
-            <th scope="col" colspan="11">  <h3> Turma: {{ turma.numero_turma }} </h3> </th>
-       </tr>
-        <tr>
-            <th scope="col">  semestre </th>
-            <th scope="col">  status </th>
-<!--            <th scope="col">  created_at </th>-->
-            <th scope="col">  numero_turma </th>
-            <th scope="col">  professor </th>
-            <th scope="col">  coordenador </th>
-            <th scope="col">  nivel </th>
-            <th scope="col">  inicio </th>
-            <th scope="col">  fim </th>
-            <th scope="col">  idioma </th>
+<!---->
 
-            <th scope="col">  dia_semana </th>
-            <th scope="col">  detalhe </th>
-            <th scope="col">  editar </th>
-        </tr>
+<h3> TURMA: {{ turma.numero_turma }}</h3>
+
+<div  role="region" aria-labelledby="HeadersCol" tabindex="0" class="rowheaders limit-table">
+     <table style="text-transform:uppercase;" >
+        <thead>
+            <tr>
+                <th>  numero_turma </th>
+                <th>  created_at </th>
+                <th>  semestre </th>
+                <th>  status </th>
+                <th>  professor </th>
+                <th>  coordenador </th>
+                <th>  nivel </th>
+                <th>  inicio </th>
+                <th>  fim </th>
+                <th>  idioma </th>
+                <th>  dia_semana </th>
+                <th>  editar </th>
+            </tr>
         </thead>
         <tbody>
         <tr>
-            <th class="row"> <a href="#">  {{ turma.semestre }} </a> </th>
-            <td> <a href="#">  {{ turma.status }} </a> </td>
-<!--            <td> <a href="">  {{ turma.created_at |date:'Y' }} </a> </td>-->
-            <td> <a href="#">  {{ turma.numero_turma }} </a> </td>
-            <td> <a href="#">  {{ turma.professor.nome_completo }} </a> </td>
-            <td> <a href="#">  {{ turma.coordenador.nome_completo }} </a> </td>
-            <td> <a href="#">  {{ turma.nivel }} </a> </td>
-            <td> <a href="#">  {{ turma.inicio }} </a> </td>
-            <td> <a href="#">  {{ turma.fim }} </a> </td>
-            <td> <a href="#">  {{ turma.idioma }} </a> </td>
+            <th scope="row">
+                <a href="{% url 'turma-detail' turma.id %}">
+                    {{ turma.numero_turma | default_if_none:""  }}
+                </a>
+            </th>
+            <td>   {{ turma.created_at |date:'Y' | default_if_none:""  }} </td>
+            <td> {{ turma.semestre | default_if_none:""  }}  </td>
+            <td>   {{ turma.status | default_if_none:""  }} </td>
+
+            <td>   {{ turma.professor.nome_completo | default_if_none:""  }} </td>
+            <td>   {{ turma.coordenador.nome_completo | default_if_none:""  }} </td>
+            <td>   {{ turma.nivel | default_if_none:""  }} </td>
+            <td>   {{ turma.inicio | default_if_none:""  }} </td>
+            <td>   {{ turma.fim | default_if_none:""  }} </td>
+            <td>   {{ turma.idioma | default_if_none:""  }} </td>
 
             <td>
                 {% for hr in turma.hr_turma.select_related %}
@@ -48,64 +53,108 @@
             {% endfor %}
             </td>
 
-            <td> <a href="{% url 'turma-detail' turma.id %}"> link </a> </td>
             <td> <a href="{% url 'turma-update' turma.id %}">  link </a> </td>
 
         </tr>
 
     <tbody>
     </table>
+  </div>
 
-<!--ALunos-->
+<!---->
+<br>
 
-    <table class="table table-striped  table-hover table-responsive" style="text-transform:uppercase;" >
-        <thead>
-        <tr>
-            <th scope="col" colspan="12">  <h3> ALUNOS </h3> </th>
-       </tr>
-        <tr>
-            <th scope="col">  nome </th>
-<!--            <th scope="col">  status </th>-->
-            <th scope="col">  nasc </th>
-            <th scope="col">  telefone1 </th>
-            <th scope="col">  n irmãos </th>
-            <th scope="col">  tel responsavel financeiro </th>
-            <th scope="col">  bolsista </th>
-            <th scope="col">  celular mae </th>
-            <th scope="col">  tel trabalho mae </th>
-            <th scope="col">  celular pai </th>
-            <th scope="col">  tel trabalho pai </th>
-            <th scope="col">  detalhe </th>
-            <th scope="col">  editar </th>
-            <th scope="col">  foto </th>
-        </tr>
-        </thead>
-        <tbody>
-    {% for aluno in turma.aluno.select_related %}
-        <tr>
-            <th class="row"> <a href="#">  {{ aluno.nome }} </a> </th>
-<!--                <td> <a href="#">  {{ aluno.status }} </a> </td>-->
-                <td> <a href="#">  {{ aluno.dat_nasc |date:'d-M-y'}} </a> </td>
-                <td> <a href="#">  {{ aluno.telefone1}} </a> </td>
-                <td> <a href="#">  {{ aluno.n_irmaos}} </a> </td>
-                <td> <a href="#">  {{ aluno.tel_responsavel_financeiro}} </a> </td>
-                <td> <a href="#">  {{ aluno.bolsista}} </a> </td>
-                <td> <a href="#">  {{ aluno.celular_mae}} </a> </td>
-                <td> <a href="#">  {{ aluno.tel_trabalho_mae}} </a> </td>
-                <td> <a href="#">  {{ aluno.celular_pai}} </a> </td>
-                <td> <a href="#">  {{ aluno.tel_trabalho_pai}} </a> </td>
-                <td> <a href="{{ aluno.get_absolute_url }}"> link </a> </td>
-                <td> <a href="{% url 'aluno-update' aluno.id %}">  link </a> </td>
-                <td>
-                <a href="#">
-                    {% if aluno.foto %}
-                        <img src="{{ MEDIA_URL }}{{aluno.foto}}" class="img-responsive" alt="..." width="60" height="60" >
+<h3>ALUNOS </h3>
 
-                    {% endif %}
-                </a>
-                </td>
-        </tr>
-    {% endfor %}
+<div  role="region" aria-labelledby="HeadersCol" tabindex="0" class="rowheaders limit-table">
+ <table style="text-transform:uppercase;" >
+    <thead>
+    <tr>
+        <th>  nome </th>
+        <th>  status </th>
+        <th>  telefone1 </th>
+        <th>  responsavel financeiro </th>
+        <th>  mae </th>
+        <th>  trabalho mae </th>
+        <th>  pai </th>
+        <th>  trabalho pai </th>
+        <th>  editar </th>
+    </tr>
+    </thead>
     <tbody>
-    </table>
+
+    {% for aluno in turma.aluno.select_related %}
+    <tr>
+        <th scope="row">
+            <a href="{{ aluno.get_absolute_url }}">
+                {{ aluno.id  | default_if_none:"" }} - {{ aluno.full_name  | default_if_none:"" }}
+            </a> </th>
+            <td> {{ aluno.status  | default_if_none:"" }} </td>
+            <td> {{ aluno.telefone1 | default_if_none:"" }} </td>
+            <td> {{ aluno.tel_responsavel_financeiro | default_if_none:"" }} </td>
+            <td> {{ aluno.celular_mae | default_if_none:"" }} </td>
+            <td> {{ aluno.tel_trabalho_mae | default_if_none:"" }} </td>
+            <td> {{ aluno.celular_pai | default_if_none:"" }} </td>
+            <td> {{ aluno.tel_trabalho_pai | default_if_none:"" }} </td>
+            <td> <a href="{% url 'aluno-update' aluno.id %}">  link </a> </td>
+    </tr>
+ {% endfor %}
+
+<tbody>
+</table>
+</div>
+
+<!---->
+<br>
+<br>
+
+<h3>LANÇAR NOTAS </h3>
+
+<div  role="region" aria-labelledby="HeadersCol" tabindex="0" class="rowheaders limit-table">
+ <table style="text-transform:uppercase;" >
+    <thead>
+    <tr>
+        <th> aluno </th>
+        <th> research_01 </th>
+        <th> organization_01 </th>
+        <th> interest_01 </th>
+        <th> group_activity_01  </th>
+        <th> speaking_01 </th>
+        <th> frequencia_of_01 </th>
+        <th> listening_01 </th>
+        <th> readind_inter_01 </th>
+        <th> writing_process_01 </th>
+        <th> enviar </th>
+    </tr>
+    </thead>
+    <tbody>
+
+    {% for aluno in turma.aluno.select_related %}
+    <tr>
+        <form action="{% url 'turma-nota-teste' %}" method="POST">
+            {% csrf_token %}
+                <th scope="row">
+                    <a href="{{ aluno.get_absolute_url }}">
+                        {{ aluno.id  | default_if_none:"" }} - {{ aluno.full_name  | default_if_none:"" }}
+                    </a>
+                </th>
+                <td> <input type="number" name="turma" value="{{turma.id}}" placeholder="{{turma.id}}"> </td>
+                <td> <input type="number" name="research_01"> </td>
+                <td> <input type="number" name="organization_01"> </td>
+
+                <td>
+                    <button class="btn btn-info size-sm" type="submit" name="id" value="{{ aluno.id }}">
+                        Enviar
+                    </button>
+                </td>
+        </form>
+    </tr>
+ {% endfor %}
+
+<tbody>
+</table>
+</div>
+
+{{ research_01 }}
+
 {% endblock %}

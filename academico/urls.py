@@ -48,10 +48,14 @@ urlpatterns = [
                   path('horario-update-form/<int:pk>', views.Horario().update_form, name='horario-update-form'),
                   # path('horario-update/', views.Horario().update, name='horario-update'),
 
-                  path('aluno-search-name/', views.Aluno().search_name, name='aluno-search-name'),
+                  path('aluno-search/', views.Aluno().search, name='aluno-search'),
+                  path('turma-search/', views.Turmas().search, name='turma-search'),
 
-                  path('aluno-pdf/<int:id>', views.Aluno().pdf, name='aluno-pdf'),
-                  path('turma-pdf/<int:id>', views.Aluno().pdf, name='turma-pdf'),
+                  path('turma-nota-teste/', views.Turmas().nota, name='turma-nota-teste'),
+
+                  path('aluno-pdf/<int:id>', views.Aluno().pdf_aluno_detalhe, name='aluno-pdf'),
+                  path('aniversariantes-pdf/<int:bday>', views.Aluno().pdf_aniversariantes, name='aniversariantes-pdf'),
+                  # path('turma-pdf/<int:id>', views.Aluno().pdf_aniversariantes, name='turma-pdf'),
 
 
               ] + static(

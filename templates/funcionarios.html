@@ -3,41 +3,33 @@
 {% block main %}
 
 
-<!--<ul >-->
-<!--    {% for funcionario in funcionarios %}-->
-<!--        <li> <a href="#">-->
-<!--            {{ funcionario.nome_completo }}-->
-<!--        </a> </li>-->
-<!--    {% endfor %}-->
-<!--</ul>-->
+<h3> FUNCIONÁRIOS </h3>
 
-<table class="table table-striped  table-hover table-responsive " style="text-transform:uppercase;">
-    <thead>
-        <tr>
-            <th scope="col" colspan="8">  <h3> funcionarios </h3> </th>
-        </tr>
-        <tr>
-            <th scope="col">  nome </th>
-            <th scope="col">  status </th>
-            <th scope="col">  funcao </th>
-            <th scope="col">  telefone1 </th>
-            <th scope="col">  telefone2 </th>
-            <th scope="col">  dat_nasc </th>
-            <th scope="col">  email </th>
-            <th scope="col">  editar </th>
-            <th scope="col">  foto </th>
-        </tr>
-    </thead>
+<div  role="region" aria-labelledby="HeadersCol" tabindex="0" class="rowheaders limit-table">
+     <table style="text-transform:uppercase;" >
+        <thead>
+            <tr>
+                <th>  nome </th>
+                <th>  status </th>
+                <th>  funcao </th>
+                <th>  telefone1 </th>
+                <th>  telefone2 </th>
+                <th>  dat_nasc </th>
+                <th>  email </th>
+                <th>  editar </th>
+                <th>  foto </th>
+            </tr>
+        </thead>
     <tbody>
     {% for funcionario in funcionarios %}
         <tr>
-            <th class="row"> <a href="#">  {{ funcionario.nome_completo }} </a> </th>
-                <td> <a href="#">  {{ funcionario.status }} </a> </td>
-                <td> <a href="#">  {{ funcionario.funcao }} </a> </td>
-                <td> <a href="#">  {{ funcionario.telefone1 }} </a> </td>
-                <td> <a href="#">  {{ funcionario.telefone2 }} </a> </td>
-                <td> <a href="#">  {{ funcionario.dat_nasc }} </a> </td>
-                <td> <a href="#">  {{ funcionario.email }} </a> </td>
+            <th scope="row"> {{ funcionario.nome_completo }} </th>
+                <td> {{ funcionario.status }} </td>
+                <td> {{ funcionario.funcao }} </td>
+                <td> {{ funcionario.telefone1 }} </td>
+                <td> {{ funcionario.telefone2 }} </td>
+                <td> {{ funcionario.dat_nasc }} </td>
+                <td> {{ funcionario.email }} </td>
                 <td> <a href="{% url 'funcionario-update' funcionario.id %}">  link </a> </td>
                 <td>
                 <a href="#">
@@ -51,6 +43,7 @@
     {% endfor %}
     <tbody>
     </table>
+</div>
 
 
 {% endblock %}

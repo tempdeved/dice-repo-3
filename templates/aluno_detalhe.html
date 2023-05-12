@@ -2,43 +2,42 @@
 {% extends 'base.html' %}
 {% block main %}
 
-<br>
-    <table class="table table-striped  table-hover table-responsive" style="text-transform:uppercase;" >
-        <thead>
-        <tr>
-            <th scope="col" colspan="12">  <h3> {{ aluno.full_name  | default_if_none:"" }} </h3> </th>
-       </tr>
-        <tr>
-            <th scope="col">  id </th>
-            <th scope="col">  status </th>
-            <th scope="col">  nasc </th>
-            <th scope="col">  telefone1 </th>
-            <th scope="col">  n irmãos </th>
-            <th scope="col">  tel responsavel financeiro </th>
-            <th scope="col">  bolsista </th>
-            <th scope="col">  celular mae </th>
-            <th scope="col">  tel trabalho mae </th>
-            <th scope="col">  celular pai </th>
-            <th scope="col">  tel trabalho pai </th>
-            <th scope="col">  detalhe </th>
-            <th scope="col">  editar </th>
-            <th scope="col">  foto </th>
-        </tr>
+
+<h3> {{ aluno.full_name  | default_if_none:"" }} </h3>
+<div  role="region" aria-labelledby="HeadersCol" tabindex="0" class="rowheaders limit-table">
+     <table style="text-transform:uppercase;" >
+         <thead>
+            <tr>
+                <th>  id </th>
+                <th>  status </th>
+                <th>  nasc </th>
+                <th>  telefone1 </th>
+                <th>  n irmãos </th>
+                <th>  tel responsavel financeiro </th>
+                <th>  bolsista </th>
+                <th>  celular mae </th>
+                <th>  tel trabalho mae </th>
+                <th>  celular pai </th>
+                <th>  tel trabalho pai </th>
+                <th>  detalhe </th>
+                <th>  editar </th>
+                <th>  foto </th>
+            </tr>
         </thead>
         <tbody>
 
         <tr>
-            <th class="row"> <a href="#">  {{ aluno.id  | default_if_none:"" }} </a> </th>
-                <td> <a href="#">  {{ aluno.status  | default_if_none:"" }} </a> </td>
-                <td> <a href="#">  {{ aluno.dat_nasc |date:'d-M-y' | default_if_none:"" }} </a> </td>
-                <td> <a href="#">  {{ aluno.telefone1 | default_if_none:"" }} </a> </td>
-                <td> <a href="#">  {{ aluno.n_irmaos | default_if_none:"" }} </a> </td>
-                <td> <a href="#">  {{ aluno.tel_responsavel_financeiro | default_if_none:"" }} </a> </td>
-                <td> <a href="#">  {{ aluno.bolsista | default_if_none:"" }} </a> </td>
-                <td> <a href="#">  {{ aluno.celular_mae | default_if_none:"" }} </a> </td>
-                <td> <a href="#">  {{ aluno.tel_trabalho_mae | default_if_none:"" }} </a> </td>
-                <td> <a href="#">  {{ aluno.celular_pai | default_if_none:"" }} </a> </td>
-                <td> <a href="#">  {{ aluno.tel_trabalho_pai | default_if_none:"" }} </a> </td>
+            <th scope="row"> {{ aluno.id  | default_if_none:"" }} </th>
+                <td> {{ aluno.status  | default_if_none:"" }} </td>
+                <td> {{ aluno.dat_nasc |date:'d-M-y' | default_if_none:"" }} </td>
+                <td> {{ aluno.telefone1 | default_if_none:"" }} </td>
+                <td> {{ aluno.n_irmaos | default_if_none:"" }} </td>
+                <td> {{ aluno.tel_responsavel_financeiro | default_if_none:"" }} </td>
+                <td> {{ aluno.bolsista | default_if_none:"" }} </td>
+                <td> {{ aluno.celular_mae | default_if_none:"" }} </td>
+                <td> {{ aluno.tel_trabalho_mae | default_if_none:"" }} </td>
+                <td> {{ aluno.celular_pai | default_if_none:"" }} </td>
+                <td> {{ aluno.tel_trabalho_pai | default_if_none:"" }} </td>
                 <td> <a href="{{ aluno.get_absolute_url }}">  link </a> </td>
                 <td> <a href="{% url 'aluno-update' aluno.id %}">  link </a> </td>
                 <td>
@@ -53,121 +52,129 @@
 
     <tbody>
     </table>
+</div>
 
 <!--    TURMA ATUAL-->
+<br>
+<h3> TURMA ATUAL </h3>
 
-    <table class="table table-striped  table-hover table-responsive" style="text-transform:uppercase;" >
+<div  role="region" aria-labelledby="HeadersCol" tabindex="0" class="rowheaders limit-table">
+     <table style="text-transform:uppercase;" >
     <thead>
         <tr>
-            <th scope="col" colspan="11">  <h3> Atual </h3> </th>
-       </tr>
-        <tr>
-            <th scope="col">  semestre </th>
-            <th scope="col">  status </th>
-<!--            <th scope="col">  created_at </th>-->
-            <th scope="col">  numero_turma </th>
-            <th scope="col">  professor </th>
-            <th scope="col">  coordenador </th>
-            <th scope="col">  nivel </th>
-            <th scope="col">  inicio </th>
-            <th scope="col">  fim </th>
-            <th scope="col">  idioma </th>
+            <th>  semestre </th>
+            <th>  status </th>
+<!--            <th>  created_at </th>-->
+            <th>  numero_turma </th>
+            <th>  professor </th>
+            <th>  coordenador </th>
+            <th>  nivel </th>
+            <th>  inicio </th>
+            <th>  fim </th>
+            <th>  idioma </th>
 
-            <th scope="col">  dia_semana </th>
-            <th scope="col">  detalhe </th>
-            <th scope="col">  editar </th>
+            <th>  dia_semana </th>
+            <th>  editar </th>
         </tr>
         </thead>
         <tbody>
 
     {% for turma in turmas_ativa %}
         <tr>
-            <th class="row"> <a href="#">  {{ turma.semestre  | default_if_none:"" }} </a> </th>
-            <td> <a href="#">  {{ turma.status  | default_if_none:"" }} </a> </td>
+            <th scope="row"> {{ turma.semestre  | default_if_none:"" }} </th>
+            <td> {{ turma.status  | default_if_none:"" }} </td>
 <!--            <td> <a href="">  {{ turma.created_at |date:'Y'  | default_if_none:"" }} </a> </td>-->
-            <td> <a href="#">  {{ turma.numero_turma  | default_if_none:"" }} </a> </td>
-            <td> <a href="#">  {{ turma.professor.nome_completo  | default_if_none:"" }} </a> </td>
-            <td> <a href="#">  {{ turma.coordenador.nome_completo  | default_if_none:"" }} </a> </td>
-            <td> <a href="#">  {{ turma.nivel  | default_if_none:"" }} </a> </td>
-            <td> <a href="#">  {{ turma.inicio  | default_if_none:"" }} </a> </td>
-            <td> <a href="#">  {{ turma.fim  | default_if_none:"" }} </a> </td>
-            <td> <a href="#">  {{ turma.idioma  | default_if_none:"" }} </a> </td>
+            <td>
+                <a href="{% url 'turma-detail' turma.id %}">
+                    {{ turma.numero_turma  | default_if_none:"" }}
+                </a></td>
+            <td> {{ turma.professor.nome_completo  | default_if_none:"" }} </td>
+            <td> {{ turma.coordenador.nome_completo  | default_if_none:"" }} </td>
+            <td> {{ turma.nivel  | default_if_none:"" }} </td>
+            <td> {{ turma.inicio  | default_if_none:"" }} </td>
+            <td> {{ turma.fim  | default_if_none:"" }} </td>
+            <td> {{ turma.idioma  | default_if_none:"" }} </td>
 
             <td>
                 {% for hr in turma.hr_turma.select_related %}
                     {{ hr.dia_semana | default_if_none:"" }}
                         <a href="#">
-                            {{ hr.hr_turma | default_if_none:"" }}
+                            {{ hr.view_hr_turma | default_if_none:"" }}
                         </a>
                     {{ hr.view_duracao_min | default_if_none:"" }} min
                     <br>
             {% endfor %}
             </td>
 
-            <td> <a href="{% url 'turma-detail' turma.id %}"> link </a> </td>
             <td> <a href="{% url 'turma-update' turma.id %}">  link </a> </td>
         </tr>
     {% endfor %}
     <tbody>
     </table>
+</div>
 
-<!--    TURMAs ENCERRADAS-->
 
-    <table class="table table-striped  table-hover table-responsive" style="text-transform:uppercase;" >
+<!--    TURMA ENCERRADA-->
+<br>
+
+<h3> TURMA ENCERRADA </h3>
+
+<div  role="region" aria-labelledby="HeadersCol" tabindex="0" class="rowheaders limit-table">
+     <table style="text-transform:uppercase;" >
     <thead>
         <tr>
-            <th scope="col" colspan="11">  <h3> Encerradas </h3> </th>
-       </tr>
-        <tr>
-            <th scope="col">  semestre </th>
-            <th scope="col">  status </th>
-<!--            <th scope="col">  created_at </th>-->
-            <th scope="col">  numero_turma </th>
-            <th scope="col">  professor </th>
-            <th scope="col">  coordenador </th>
-            <th scope="col">  nivel </th>
-            <th scope="col">  inicio </th>
-            <th scope="col">  fim </th>
-            <th scope="col">  idioma </th>
+            <th>  semestre </th>
+            <th>  status </th>
+<!--            <th>  created_at </th>-->
+            <th>  numero_turma </th>
+            <th>  professor </th>
+            <th>  coordenador </th>
+            <th>  nivel </th>
+            <th>  inicio </th>
+            <th>  fim </th>
+            <th>  idioma </th>
 
-            <th scope="col">  dia_semana </th>
-            <th scope="col">  detalhe </th>
-            <th scope="col">  editar </th>
+            <th>  dia_semana </th>
+            <th>  editar </th>
         </tr>
         </thead>
         <tbody>
 
     {% for turma in turmas_encerradas %}
         <tr>
-            <th class="row"> <a href="#">  {{ turma.semestre  | default_if_none:"" }} </a> </th>
-            <td> <a href="#">  {{ turma.status  | default_if_none:"" }} </a> </td>
+            <th scope="row"> {{ turma.semestre  | default_if_none:"" }} </th>
+            <td> {{ turma.status  | default_if_none:"" }} </td>
 <!--            <td> <a href="">  {{ turma.created_at |date:'Y'  | default_if_none:"" }} </a> </td>-->
-            <td> <a href="#">  {{ turma.numero_turma  | default_if_none:"" }} </a> </td>
-            <td> <a href="#">  {{ turma.professor.nome_completo  | default_if_none:"" }} </a> </td>
-            <td> <a href="#">  {{ turma.coordenador.nome_completo  | default_if_none:"" }} </a> </td>
-            <td> <a href="#">  {{ turma.nivel  | default_if_none:"" }} </a> </td>
-            <td> <a href="#">  {{ turma.inicio  | default_if_none:"" }} </a> </td>
-            <td> <a href="#">  {{ turma.fim  | default_if_none:"" }} </a> </td>
-            <td> <a href="#">  {{ turma.idioma  | default_if_none:"" }} </a> </td>
+            <td>
+                <a href="{% url 'turma-detail' turma.id %}">
+                    {{ turma.numero_turma  | default_if_none:"" }}
+                </a></td>
+            <td> {{ turma.professor.nome_completo  | default_if_none:"" }} </td>
+            <td> {{ turma.coordenador.nome_completo  | default_if_none:"" }} </td>
+            <td> {{ turma.nivel  | default_if_none:"" }} </td>
+            <td> {{ turma.inicio  | default_if_none:"" }} </td>
+            <td> {{ turma.fim  | default_if_none:"" }} </td>
+            <td> {{ turma.idioma  | default_if_none:"" }} </td>
 
             <td>
                 {% for hr in turma.hr_turma.select_related %}
                     {{ hr.dia_semana | default_if_none:"" }}
                         <a href="#">
-                            {{ hr.hr_turma | default_if_none:"" }}
+                            {{ hr.view_hr_turma | default_if_none:"" }}
                         </a>
                     {{ hr.view_duracao_min | default_if_none:"" }} min
                     <br>
             {% endfor %}
             </td>
 
-            <td> <a href="{% url 'turma-detail' turma.id %}"> link </a> </td>
             <td> <a href="{% url 'turma-update' turma.id %}">  link </a> </td>
         </tr>
     {% endfor %}
     <tbody>
     </table>
+</div>
 
+<br>
 
 <form action="{% url 'aluno-pdf' aluno.id %}" method="GET">
     <button class="btn btn-info size-sm" type="submit"> PDF ALuno </button>
