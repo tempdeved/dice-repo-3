@@ -115,16 +115,17 @@
     <thead>
     <tr>
         <th> aluno </th>
-        <th> research_01 </th>
-        <th> organization_01 </th>
-        <th> interest_01 </th>
-        <th> group_activity_01  </th>
-        <th> speaking_01 </th>
-        <th> frequencia_of_01 </th>
-        <th> listening_01 </th>
-        <th> readind_inter_01 </th>
-        <th> writing_process_01 </th>
-        <th> enviar </th>
+        <th class="vertical-mode"> turma </th>
+        <th class="vertical-mode"> research_01 </th>
+        <th class="vertical-mode"> organization_01 </th>
+        <th class="vertical-mode"> interest_01 </th>
+        <th class="vertical-mode"> group_activity_01  </th>
+        <th class="vertical-mode"> speaking_01 </th>
+        <th class="vertical-mode"> frequencia_of_01 </th>
+        <th class="vertical-mode"> listening_01 </th>
+        <th class="vertical-mode"> readind_inter_01 </th>
+        <th class="vertical-mode"> writing_process_01 </th>
+        <th class="vertical-mode"> enviar </th>
     </tr>
     </thead>
     <tbody>
@@ -138,8 +139,8 @@
                         {{ aluno.id  | default_if_none:"" }} - {{ aluno.full_name  | default_if_none:"" }}
                     </a>
                 </th>
-                <td> <input type="number" name="turma" value="{{turma.id}}" placeholder="{{turma.id}}"> </td>
-                <td> <input type="number" name="research_01"> </td>
+                <td> <input type="number" size="4" name="turma" value="{{turma.id}}" placeholder="{{turma.id}}"> </td>
+                <td> <input type="number" size="50" name="research_01"> </td>
                 <td> <input type="number" name="organization_01"> </td>
 
                 <td>
