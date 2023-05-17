@@ -115,17 +115,17 @@
     <thead>
     <tr>
         <th> aluno </th>
-        <th class="vertical-mode"> turma </th>
-        <th class="vertical-mode"> research_01 </th>
-        <th class="vertical-mode"> organization_01 </th>
-        <th class="vertical-mode"> interest_01 </th>
-        <th class="vertical-mode"> group_activity_01  </th>
-        <th class="vertical-mode"> speaking_01 </th>
-        <th class="vertical-mode"> frequencia_of_01 </th>
-        <th class="vertical-mode"> listening_01 </th>
-        <th class="vertical-mode"> readind_inter_01 </th>
-        <th class="vertical-mode"> writing_process_01 </th>
-        <th class="vertical-mode"> enviar </th>
+        <th class=""> turma </th>
+        <th class=""> research_01 </th>
+        <th class=""> organization_01 </th>
+        <th class=""> interest_01 </th>
+        <th class=""> group_activity_01  </th>
+        <th class=""> speaking_01 </th>
+        <th class=""> frequencia_of_01 </th>
+        <th class=""> listening_01 </th>
+        <th class=""> readind_inter_01 </th>
+        <th class=""> writing_process_01 </th>
+        <th class=""> enviar </th>
     </tr>
     </thead>
     <tbody>
@@ -139,9 +139,16 @@
                         {{ aluno.id  | default_if_none:"" }} - {{ aluno.full_name  | default_if_none:"" }}
                     </a>
                 </th>
-                <td> <input type="number" size="4" name="turma" value="{{turma.id}}" placeholder="{{turma.id}}"> </td>
-                <td> <input type="number" size="50" name="research_01"> </td>
-                <td> <input type="number" name="organization_01"> </td>
+                <td> <input type="number" name="turma" value="{{turma.id}}" placeholder="{{turma.id}}"> </td>
+                <td> <input type="number" name="research_01"  placeholder="{{turma.research_01}}"> </td>
+                <td> <input type="number" name="organization_01"  placeholder="{{turma.organization_01}}"> </td>
+                <td> <input type="number" name="interest_01"  placeholder="{{turma.interest_01}}"> </td>
+                <td> <input type="number" name="group_activity_01"  placeholder="{{turma.group_activity_01}}"> </td>
+                <td> <input type="number" name="speaking_01"  placeholder="{{turma.speaking_01}}"> </td>
+                <td> <input type="number" name="frequencia_of_01"  placeholder="{{turma.frequencia_of_01}}"> </td>
+                <td> <input type="number" name="listening_01"  placeholder="{{turma.listening_01}}"> </td>
+                <td> <input type="number" name="readind_inter_01"  placeholder="{{turma.readind_inter_01}}"> </td>
+                <td> <input type="number" name="writing_process_01"  placeholder="{{turma.writing_process_01}}"> </td>
 
                 <td>
                     <button class="btn btn-info size-sm" type="submit" name="id" value="{{ aluno.id }}">
