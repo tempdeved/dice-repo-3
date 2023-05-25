@@ -15,13 +15,17 @@
     <tbody>
         <tr>
             <td>
-                <form action="{% url 'turma-search' %}" method="GET">
+<!--                <form action="{% url 'turma-search' %}" method="GET">-->
+                <form method="POST">
+                    <!--  csrf_token atack protect  -->
+                    {% csrf_token %}
 
 <!--                    <input type="year" name="ano" value="{{ now }}">-->
                     <input type="number" name="ano" min="1990" max="2099" step="1"  value="{{ now }}">
                     <select name="status">
                           <option value="ativa">Ativa</option>
                           <option value="encerrada">Encerrada</option>
+                          <option value="todas">Todas</option>
                     </select>
                     <button class="btn btn-info size-sm" type="submit"> Buscar </button>
 <!--                    <button class="btn btn-info size-sm" name="pdf" type="submit" value="PDF"> PDF </button>-->

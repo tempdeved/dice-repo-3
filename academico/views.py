@@ -413,14 +413,42 @@ class Turmas():
 
     # @login_required()
     def list(rself, request):
+        now = datetime.datetime.now()
+
         if not request.user.is_authenticated:
             response = not_auth(request)
             return response
            # return redirect(to='home')
         else:
-            turmas = models.Turma.objects.all()
+            if request.method == "POST":
+                print(request)
+                year = now.year if request.POST['ano'] == '' else request.POST['ano']
+                status = request.POST['status']
 
-            now = datetime.datetime.now()
+                if (year is not None) and (status is not None):
+
+                    if status == 'todas':
+                        turmas = models.Turma.objects.all().filter(
+                            created_at__year=year,
+                         )
+                    else:
+                        turmas = models.Turma.objects.all().filter(
+                            created_at__year=year,
+                            status=status
+                        )
+
+                elif (year is None) and (status is not None):
+                    turmas = models.Turma.objects.all().filter(
+                        status=status
+                    )
+                else:
+                    turmas = models.Turma.objects.all().filter(
+                        status=status
+                    )[:10]
+
+            else:
+                turmas = models.Turma.objects.all()
+
             result = {
                 'turmas': turmas,
                 'now': f'{now.year}'
@@ -462,10 +490,12 @@ class Turmas():
 
     def detail(self, request, id):
         result_query = get_object_or_404(models.Turma, pk=id)
-        # result_query = models.Turma.objects.get(id=id)
+
+        form = forms.HistoricoAlunoForm2()
 
         data = {
-            'turma': result_query
+            'turma': result_query,
+            'formset': form
         }
 
         response = render(
@@ -531,7 +561,11 @@ class Turmas():
 
     def nota(self, request):
 
-        print('')
+        print(request)
+        print(request.POST)
+        print(request.POST['id'])
+        print(request.POST['turma'])
+        # print(request.POST.turma)
 
         id = request.POST["id"]
         research_01 = request.POST["research_01"]

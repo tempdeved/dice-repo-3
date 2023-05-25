@@ -287,23 +287,23 @@ class HistoricoAluno(models.Model):
     numero_faltas = models.IntegerField(blank=True, null=True, default='')
 
     research_01 = models.IntegerField(blank=True, null=True, default='')
-    research_02= models.IntegerField(blank=True, null=True, default='')
+    # research_02= models.IntegerField(blank=True, null=True, default='')
     organization_01 = models.IntegerField(blank=True, null=True, default='')
-    organization_02 = models.IntegerField(blank=True, null=True, default='')
+    # organization_02 = models.IntegerField(blank=True, null=True, default='')
     interest_01 = models.IntegerField(blank=True, null=True, default='')
-    interest_02 = models.IntegerField(blank=True, null=True, default='')
+    # interest_02 = models.IntegerField(blank=True, null=True, default='')
     group_activity_01 = models.IntegerField(blank=True, null=True, default='')
-    group_activity_02 = models.IntegerField(blank=True, null=True, default='')
+    # group_activity_02 = models.IntegerField(blank=True, null=True, default='')
     speaking_01 = models.IntegerField(blank=True, null=True, default='')
-    speaking_02 = models.IntegerField(blank=True, null=True, default='')
+    # speaking_02 = models.IntegerField(blank=True, null=True, default='')
     frequencia_of_01 = models.IntegerField(blank=True, null=True, default='')
-    frequencia_of_02 = models.IntegerField(blank=True, null=True, default='')
+    # frequencia_of_02 = models.IntegerField(blank=True, null=True, default='')
     listening_01 = models.IntegerField(blank=True, null=True, default='')
-    listening_02 = models.IntegerField(blank=True, null=True, default='')
+    # listening_02 = models.IntegerField(blank=True, null=True, default='')
     readind_inter_01 = models.IntegerField(blank=True, null=True, default='')
-    readind_inter_02 = models.IntegerField(blank=True, null=True, default='')
+    # readind_inter_02 = models.IntegerField(blank=True, null=True, default='')
     writing_process_01 = models.IntegerField(blank=True, null=True, default='')
-    writing_process_02 = models.IntegerField(blank=True, null=True, default='')
+    # writing_process_02 = models.IntegerField(blank=True, null=True, default='')
 
     descricao = models.TextField(blank=True, null=True, default='')
 
@@ -322,23 +322,23 @@ class HistoricoAluno(models.Model):
 
         list_of_values = [
             self.research_01,
-            self.research_02,
+            # self.research_02,
             self.organization_01,
-            self.organization_02,
+            # self.organization_02,
             self.interest_01,
-            self.interest_02,
+            # self.interest_02,
             self.group_activity_01,
-            self.group_activity_02,
+            # self.group_activity_02,
             self.speaking_01,
-            self.speaking_02,
+            # self.speaking_02,
             self.frequencia_of_01,
-            self.frequencia_of_02,
+            # self.frequencia_of_02,
             self.listening_01,
-            self.listening_02,
+            # self.listening_02,
             self.readind_inter_01,
-            self.readind_inter_02,
+            # self.readind_inter_02,
             self.writing_process_01,
-            self.writing_process_02,
+            # self.writing_process_02,
         ]
 
         result = sum([i for i in list_of_values if i is not None]) / \

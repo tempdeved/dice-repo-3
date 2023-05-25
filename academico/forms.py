@@ -18,6 +18,23 @@ FAVORITE_COLORS_CHOICES = [
 ]
 
 
+class HistoricoAlunoForm(ModelForm):
+    class Meta:
+        model = models.HistoricoAluno
+        # fields = '__all__'
+        fields = (
+            'turma',
+            'aluno',
+            'numero_aulas',
+            'numero_faltas',
+            'research_01',
+        )
+HistoricoAlunoForm2 = forms.modelformset_factory(
+    models.HistoricoAluno,
+    fields=("turma", "aluno", 'numero_aulas'),
+    # extra=0, can_delete=True
+)
+
 # class AlunoForm(ImportForm):
 class AlunoForm(ModelForm):
     class Meta:
