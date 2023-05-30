@@ -489,13 +489,37 @@ class Turmas():
         return redirect('turmas')
 
     def detail(self, request, id):
+
+        if request.method == "POST":
+            print(request)
+            # request.POST['id']
+            pass
+        # else:
+        # result_query = get_notas(models.Turma, pk=id)
+        # if len(result_query) <= 0:
         result_query = get_object_or_404(models.Turma, pk=id)
 
-        form = forms.HistoricoAlunoForm2()
+        from django import forms
+        HistoricoAlunoFormset = forms.modelformset_factory(
+            models.HistoricoAluno,
+            # models.HistoricoAluno.objects.all().filter(
+            #         id=id
+            #     ),
+            fields=("turma", "aluno", 'numero_aulas'),
+            # extra=0, can_delete=True
+        )
+
+        formset = HistoricoAlunoFormset(
+            initial=[
+                {
+                    'title': 'Django is now open source',
+                }
+            ]
+        )
 
         data = {
             'turma': result_query,
-            'formset': form
+            'formset': formset
         }
 
         response = render(

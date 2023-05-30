@@ -110,36 +110,40 @@
 
 <h3>LANÇAR NOTAS </h3>
 
-<div  role="region" aria-labelledby="HeadersCol" tabindex="0" class="rowheaders limit-table">
- <table style="text-transform:uppercase;" >
-    <thead>
-    <tr>
-        <th> aluno </th>
-        <th class=""> turma </th>
-        <th class=""> research_01 </th>
-        <th class=""> organization_01 </th>
-        <th class=""> interest_01 </th>
-        <th class=""> group_activity_01  </th>
-        <th class=""> speaking_01 </th>
-        <th class=""> frequencia_of_01 </th>
-        <th class=""> listening_01 </th>
-        <th class=""> readind_inter_01 </th>
-        <th class=""> writing_process_01 </th>
-        <th class=""> enviar </th>
-    </tr>
-    </thead>
-    <tbody>
+<form  method="POST">
 
-    <form action="{% url 'turma-nota-teste' %}" method="POST">
-    {% for aluno in turma.aluno.select_related %}
-    <tr>
+    <div  role="region" aria-labelledby="HeadersCol" tabindex="0" class="rowheaders limit-table">
+
+        <table style="text-transform:uppercase;" >
+        <thead>
+        <tr>
+            <th> aluno </th>
+            <th class=""> turma </th>
+            <th class=""> research_01 </th>
+            <th class=""> organization_01 </th>
+            <th class=""> interest_01 </th>
+            <th class=""> group_activity_01  </th>
+            <th class=""> speaking_01 </th>
+            <th class=""> frequencia_of_01 </th>
+            <th class=""> listening_01 </th>
+            <th class=""> readind_inter_01 </th>
+            <th class=""> writing_process_01 </th>
+            <th class=""> enviar </th>
+        </tr>
+        </thead>
+        <tbody>
+
+<!--    <form action="{% url 'turma-nota-teste' %}" method="POST">-->
+
+        {% for aluno in turma.aluno.select_related %}
+            <tr>
             {% csrf_token %}
                 <th scope="row">
                     <a href="{{ aluno.get_absolute_url }}">
                         {{ aluno.id  | default_if_none:"" }} - {{ aluno.full_name  | default_if_none:"" }}
                     </a>
                 </th>
-<!--            hidem primeira linha-->
+    <!--            hidem primeira linha-->
                 <input type="hidden" name="id" value="{{aluno.id}}">
                 <td> <input type="number" name="turma" value="{{turma.id}}" placeholder="{{turma.id}}"> </td>
                 <td> <input type="number" name="research_01"  placeholder="{{turma.research_01}}"> </td>
@@ -151,51 +155,28 @@
                 <td> <input type="number" name="listening_01"  placeholder="{{turma.listening_01}}"> </td>
                 <td> <input type="number" name="readind_inter_01"  placeholder="{{turma.readind_inter_01}}"> </td>
                 <td> <input type="number" name="writing_process_01"  placeholder="{{turma.writing_process_01}}"> </td>
-    </tr>
+            </tr>
 
- {% endfor %}
-       <button class="btn btn-info size-sm" type="submit" name="id" value="{{ aluno.id }}">
-            Enviar
-        </button>
- </form>
+        {% endfor %}
 
-<tbody>
-</table>
+        <tbody>
+        </table>
+
 </div>
 
+    <button class="btn btn-info size-sm" type="submit" name="id" value="{{ aluno.id }}">
+        Enviar
+    </button>
+</form>
 {{ research_01 }}
 
+<!--<br>-->
+<!--<br>-->
+<!--<h3>FORM SET </h3>-->
 
-<h3>LANÇAR NOTAS FORM </h3>
+<!--&lt;!&ndash;    {{ formset.management_form }}&ndash;&gt;-->
+<!--        {% for form in formset %}-->
+<!--        {{ form.as_table }}-->
+<!--        {% endfor %}-->
+<!--&lt;!&ndash;    {% endblock %}&ndash;&gt;-->
 
-<form method="POST">
-  {% csrf_token %}
-  {{ formset.management_form}}
-
-  <table id="studenttable" class="table table-sm">
-    <thead>
-      <tr>
-        <th></th>
-        <th>Turma</th>
-        <th>Aluno</th>
-        <th>N Aulas</th>
-        <th>N Faltas</th>
-        <th>Research</th>
-        <th>Delete</th>
-        <th>Class</th>
-      </tr>
-    </thead>
-    <tbody>
-        {% for form in formset %}
-        <tr>
-              <td>{{ form.turma }}</td>
-              <td>{{ form.aluno }}</td>
-              <td>{{ form.numero_aulas }}</td>
-        </tr>
-      {% endfor %}
-
-    </tbody>
-  </table>
-{{ form }}
-{% endblock %}
-</form>

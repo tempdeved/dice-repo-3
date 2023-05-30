@@ -29,7 +29,9 @@ class HistoricoAlunoForm(ModelForm):
             'numero_faltas',
             'research_01',
         )
-HistoricoAlunoForm2 = forms.modelformset_factory(
+
+
+HistoricoAlunoFormset = forms.modelformset_factory(
     models.HistoricoAluno,
     fields=("turma", "aluno", 'numero_aulas'),
     # extra=0, can_delete=True
