@@ -212,6 +212,7 @@ class Horario(models.Model):
     def hr_turma(self):
         return f'{self.hora_inicio}:{self.min_inicio} - ' \
                f'{self.hora_fim}:{self.min_fim}'.upper()
+
     def view_hr_turma(self):
         return f'{str(self.hora_inicio).zfill(2)}:{str(self.min_inicio).zfill(2)} - ' \
                f'{str(self.hora_fim).zfill(2)}:{str(self.min_fim).zfill(2)}'.upper()

@@ -1,16 +1,16 @@
 import datetime
-
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.views.generic import ListView
-#
 from django.template.loader import get_template
 import xhtml2pdf.pisa as pisa
 import io
 from django.views.generic.base import View
 import csv
+# from weasyprint import HTML, CSS
+
 
 class Render:
     @staticmethod
@@ -18,6 +18,7 @@ class Render:
         template = get_template(path)
         html = template.render(params)
         response = io.BytesIO()
+        pdf = ''
         pdf = pisa.pisaDocument(
             io.BytesIO(html.encode("UTF-8")), response)
         if not pdf.err:
@@ -27,11 +28,30 @@ class Render:
             return response
         else:
             return HttpResponse("Error Rendering PDF", status=400)
-#
+
+
+# class Render:
+#     @staticmethod
+#     def render(path: str, params: dict, filename: str):
+#         template = get_template(path)
+#         html = template.render(params)
+#         response = io.BytesIO()
+#         pdf = pisa.pisaDocument(
+#             io.BytesIO(html.encode("UTF-8")), response)
+#         if not pdf.err:
+#             response = HttpResponse(
+#                 response.getvalue(), content_type='application/pdf')
+#             response['Content-Disposition'] = 'attachment;filename=%s.pdf' % filename
+#             return response
+#         else:
+#             return HttpResponse("Error Rendering PDF", status=400)
+
+
 from . import models
 from . import forms
 
 TEXT_LOGIN = 'faça login'
+
 
 def not_auth(request):
     result = {
@@ -120,8 +140,6 @@ def aluno_novo(request):
     return redirect('alunos')
 
 
-
-
 def aluno(request):
     result = {
         'hello': 'ola mundo, home',
@@ -136,7 +154,9 @@ def aluno(request):
     )
     return response
 
+
 from django.shortcuts import get_object_or_404
+
 
 def aluno_id(request, id):
     aluno = models.Aluno.objects.get(id=id)
@@ -222,7 +242,6 @@ class Aluno():
 
         return response
 
-
     def pdf_aluno_detalhe(self, request, id):
 
         aluno = models.Aluno.objects.get(id=id)
@@ -235,13 +254,15 @@ class Aluno():
             'turmas_encerradas': turmas_encerradas,
         }
 
+        now = datetime.datetime.now()
         # esse RENDER é do gerador de PDF e não do Django
         response = Render.render(
             path='aluno_pdf.html',
             params=result,
-            filename='relatorio_aluno'
+            filename=f'relatorio-aluno-{now.year}-{str(now.month).zfill(2)}-{str(now.day).zfill(2)}-{aluno.nome}'
         )
         return response
+
     def pdf_aniversariantes(self, request, bday):
 
         alunos = models.Aluno.objects.all().filter(
@@ -277,7 +298,6 @@ class Aluno():
         else:
             return render(request, 'aluno_update_form.html', result )
 
-
     def create(self, request):
         if not request.user.is_authenticated:
             result = {
@@ -307,7 +327,6 @@ class Aluno():
             )
 
             return response
-
 
     def list(self):
         pass
@@ -694,7 +713,6 @@ class Funcionario():
             return render(request, 'funcionario_update_form.html', data )
 
 
-
 def funcionarios(request):
     if not request.user.is_authenticated:
         result = {
@@ -729,36 +747,31 @@ def funcionarios(request):
         return response
 
 
-######
-
-
-
-
-class Pdf(View):
-
-    def get(self, request):
-        veiculos = Aluno.objects.all()
-        params = {
-            'alunos': veiculos,
-            'request': request,
-        }
-        return Render.render('relatorio_alunos_turma.html', params, 'relatorio_alunos_turma')
-
-
-class ExportarParaCSV(View):
-    def get(self, request):
-        response = HttpResponse(content_type='text/csv')
-        response['Content-Disposition'] = 'attachment; filename="somefilename.csv"'
-
-        veiculos = Aluno.objects.all()
-
-        writer = csv.writer(response)
-        writer.writerow(['Id', 'Marca', 'placa', 'Proprietario', 'Cor'])
-
-        for veiculo in veiculos:
-            writer.writerow(
-                [veiculo.id, veiculo.marca, veiculo.placa, veiculo.proprietario,
-                 veiculo.cor
-                 ])
-
-        return response
+# class Pdf(View):
+#
+#     def get(self, request):
+#         veiculos = Aluno.objects.all()
+#         params = {
+#             'alunos': veiculos,
+#             'request': request,
+#         }
+#         return Render.render('relatorio_alunos_turma.html', params, 'relatorio_alunos_turma')
+#
+#
+# class ExportarParaCSV(View):
+#     def get(self, request):
+#         response = HttpResponse(content_type='text/csv')
+#         response['Content-Disposition'] = 'attachment; filename="somefilename.csv"'
+#
+#         veiculos = Aluno.objects.all()
+#
+#         writer = csv.writer(response)
+#         writer.writerow(['Id', 'Marca', 'placa', 'Proprietario', 'Cor'])
+#
+#         for veiculo in veiculos:
+#             writer.writerow(
+#                 [veiculo.id, veiculo.marca, veiculo.placa, veiculo.proprietario,
+#                  veiculo.cor
+#                  ])
+#
+#         return response
